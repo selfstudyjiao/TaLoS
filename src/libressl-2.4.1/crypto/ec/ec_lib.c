@@ -112,8 +112,11 @@ EC_GROUP_new(const EC_METHOD * meth)
 	return ret;
 }
 
-
 void 
+ecall_EC_GROUP_free(EC_GROUP * group) {
+	return EC_GROUP_free(group);
+}
+void
 EC_GROUP_free(EC_GROUP * group)
 {
 	if (!group)

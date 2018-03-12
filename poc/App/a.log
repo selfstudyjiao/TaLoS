@@ -1,0 +1,111 @@
+execve("./app", ["./app", "-c"], [/* 78 vars */]) = 0
+brk(NULL)                               = 0x1df6000
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+open("/home/jiao/sgxsdk/sdk_libs/tls/x86_64/libssl.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/home/jiao/sgxsdk/sdk_libs/tls/x86_64", 0x7ffdc69c0eb0) = -1 ENOENT (No such file or directory)
+open("/home/jiao/sgxsdk/sdk_libs/tls/libssl.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/home/jiao/sgxsdk/sdk_libs/tls", 0x7ffdc69c0eb0) = -1 ENOENT (No such file or directory)
+open("/home/jiao/sgxsdk/sdk_libs/x86_64/libssl.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/home/jiao/sgxsdk/sdk_libs/x86_64", 0x7ffdc69c0eb0) = -1 ENOENT (No such file or directory)
+open("/home/jiao/sgxsdk/sdk_libs/libssl.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/home/jiao/sgxsdk/sdk_libs", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+open("/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=134938, ...}) = 0
+mmap(NULL, 134938, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f967a933000
+close(3)                                = 0
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/usr/lib/x86_64-linux-gnu/libssl.so", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\320^\1\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=428384, ...}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f967a932000
+mmap(NULL, 2523600, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f967a4c6000
+mprotect(0x7f967a524000, 2097152, PROT_NONE) = 0
+mmap(0x7f967a724000, 45056, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x5e000) = 0x7f967a724000
+close(3)                                = 0
+open("/home/jiao/sgxsdk/sdk_libs/libpthread.so.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\260`\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=138696, ...}) = 0
+mmap(NULL, 2212904, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f967a2a9000
+mprotect(0x7f967a2c1000, 2093056, PROT_NONE) = 0
+mmap(0x7f967a4c0000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x17000) = 0x7f967a4c0000
+mmap(0x7f967a4c2000, 13352, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f967a4c2000
+close(3)                                = 0
+open("/home/jiao/sgxsdk/sdk_libs/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\t\2\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=1868984, ...}) = 0
+mmap(NULL, 3971488, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f9679edf000
+mprotect(0x7f967a09f000, 2097152, PROT_NONE) = 0
+mmap(0x7f967a29f000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1c0000) = 0x7f967a29f000
+mmap(0x7f967a2a5000, 14752, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f967a2a5000
+close(3)                                = 0
+open("/home/jiao/sgxsdk/sdk_libs/libcrypto.so.1.0.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libcrypto.so.1.0.0", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\36\6\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=2361856, ...}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f967a931000
+mmap(NULL, 4471680, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f9679a9b000
+mprotect(0x7f9679cb5000, 2093056, PROT_NONE) = 0
+mmap(0x7f9679eb4000, 163840, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x219000) = 0x7f9679eb4000
+mmap(0x7f9679edc000, 11136, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f9679edc000
+close(3)                                = 0
+open("/home/jiao/sgxsdk/sdk_libs/libdl.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\240\r\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=14608, ...}) = 0
+mmap(NULL, 2109680, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f9679897000
+mprotect(0x7f967989a000, 2093056, PROT_NONE) = 0
+mmap(0x7f9679a99000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0x7f9679a99000
+close(3)                                = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f967a930000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f967a92f000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f967a92e000
+arch_prctl(ARCH_SET_FS, 0x7f967a92f700) = 0
+mprotect(0x7f967a29f000, 16384, PROT_READ) = 0
+mprotect(0x7f9679a99000, 4096, PROT_READ) = 0
+mprotect(0x7f9679eb4000, 114688, PROT_READ) = 0
+mprotect(0x7f967a4c0000, 4096, PROT_READ) = 0
+mprotect(0x7f967a724000, 16384, PROT_READ) = 0
+mprotect(0x601000, 4096, PROT_READ)     = 0
+mprotect(0x7f967a954000, 4096, PROT_READ) = 0
+munmap(0x7f967a933000, 134938)          = 0
+set_tid_address(0x7f967a92f9d0)         = 8931
+set_robust_list(0x7f967a92f9e0, 24)     = 0
+rt_sigaction(SIGRTMIN, {0x7f967a2aeb50, [], SA_RESTORER|SA_SIGINFO, 0x7f967a2ba390}, NULL, 8) = 0
+rt_sigaction(SIGRT_1, {0x7f967a2aebe0, [], SA_RESTORER|SA_RESTART|SA_SIGINFO, 0x7f967a2ba390}, NULL, 8) = 0
+rt_sigprocmask(SIG_UNBLOCK, [RTMIN RT_1], NULL, 8) = 0
+getrlimit(RLIMIT_STACK, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+fstat(1, {st_mode=S_IFCHR|0620, st_rdev=makedev(136, 19), ...}) = 0
+brk(NULL)                               = 0x1df6000
+brk(0x1e17000)                          = 0x1e17000
+write(1, "Client Test:\n", 13)          = 13
+socket(PF_INET, SOCK_STREAM, IPPROTO_IP) = 3
+connect(3, {sa_family=AF_INET, sin_port=htons(11111), sin_addr=inet_addr("127.0.0.1")}, 16) = 0
+write(1, "client new method...\n", 21)  = 21
+write(1, "New ctx\n", 8)                = 8
+open("/dev/urandom", O_RDONLY|O_NOCTTY|O_NONBLOCK) = 4
+fstat(4, {st_mode=S_IFCHR|0666, st_rdev=makedev(1, 9), ...}) = 0
+poll([{fd=4, events=POLLIN}], 1, 10)    = 1 ([{fd=4, revents=POLLIN}])
+read(4, "\324b\331<5\226Pw\360\243SU\301\34T\246\270\213\4\377\207\354\236\274\17y5\302_\200\314$", 32) = 32
+close(4)                                = 0
+getuid()                                = 1000
+write(1, "New SSL\n", 8)                = 8
+write(1, "Set fd\n", 7)                 = 7
+write(1, "Connect\n", 8)                = 8
+write(3, "\26\3\1\1,\1\0\1(\3\3\305\35cP\304\2061\0Fi\3\340\f\374'|a\330~U\323"..., 305) = 305
+read(3, 0x1dff690, 7)                   = -1 ECONNRESET (Connection reset by peer)
+write(1, "0x7f967a4f0980\n", 15)        = 15
+write(1, "Write buff\n", 11)            = 11
+read(3, "", 7)                          = 0
+write(1, "Write error. Error: -1\n", 23) = 23
+read(3, "", 7)                          = 0
+write(1, "Read error. Error: -1\n", 22) = 22
+write(1, "Recieved: \t\n", 12)          = 12
+exit_group(0)                           = ?
++++ exited with 0 +++

@@ -62,6 +62,10 @@
 #include "evp_locl.h"
 #include "modes_lcl.h"
 
+#ifdef COMPILE_WITH_INTEL_SGX
+#include "enclaveshim_config.h"
+#endif
+
 typedef struct {
 	AES_KEY ks;
 	block128_f block;
@@ -161,7 +165,12 @@ extern unsigned int OPENSSL_ia32cap_P[2];
 /*
  * AES-NI section
  */
+#ifdef SQUID_WORKAROUND
+//force the activation of AES-NI with Squid
+#define	AESNI_CAPABLE	(1)
+#else
 #define	AESNI_CAPABLE	(OPENSSL_ia32cap_P[1]&(1<<(57-32)))
+#endif
 
 int aesni_set_encrypt_key(const unsigned char *userKey, int bits,
     AES_KEY *key);

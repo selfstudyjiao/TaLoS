@@ -71,6 +71,8 @@
 #include <openssl/pkcs12.h>
 #include <openssl/x509.h>
 
+#include <openssl/ssl.h>
+
 #ifndef OPENSSL_NO_DES
 #include <openssl/des.h>
 #endif
@@ -81,6 +83,12 @@
 #include "asn1_locl.h"
 
 #define MIN_LENGTH	4
+
+#ifdef COMPILE_WITH_INTEL_SGX
+extern int my_fprintf(FILE *stream, const char *format, ...);
+#else
+#define my_fprintf(stream, format, ...) fprintf(stream, format, __VA_ARGS__)
+#endif
 
 static int load_iv(char **fromp, unsigned char *to, int num);
 static int check_pem(const char *nm, const char *name);
@@ -119,7 +127,7 @@ PEM_def_callback(char *buf, int num, int w, void *key)
 		}
 		l = strlen(buf);
 		if (l < MIN_LENGTH) {
-			fprintf(stderr, "phrase is too short, "
+			my_fprintf(stderr, "phrase is too short, "
 			    "needs to be at least %zu chars\n",
 			    (size_t)MIN_LENGTH);
 		} else
@@ -323,6 +331,15 @@ err:
 	return ret;
 }
 
+int
+ecall_PEM_ASN1_write(i2d_of_void *i2d, const char *name, void *fp, void *x,
+    const EVP_CIPHER *enc, unsigned char *kstr, int klen,
+    pem_password_cb *callback, void *u)
+{
+	//PL: i2d is a function pointer to i2d_SSL_SESSION outside the enclave
+	//as it is an ecall, we replace the pointer here directly to avoid making an ocall
+	return PEM_ASN1_write((int(*)())i2d_SSL_SESSION, name, (FILE*)fp, x, enc, kstr, klen, callback, u);
+}
 int
 PEM_ASN1_write(i2d_of_void *i2d, const char *name, FILE *fp, void *x,
     const EVP_CIPHER *enc, unsigned char *kstr, int klen,
