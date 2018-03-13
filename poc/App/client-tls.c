@@ -26,7 +26,6 @@
 #include    <errno.h>
 #include    <arpa/inet.h>
 #include    <openssl/ssl.h>          /* openSSL secure read/write methods */
-//#include    <openssl/certs_test.h>
 
 #define MAXDATASIZE  4096           /* maximum acceptable amount of data */
 #define SERV_PORT    11111          /* define default port number */
@@ -52,7 +51,7 @@ int client_connect()
     char *client_key = TEST_CLIENT_KEY;
 
     /* data to send to the server, data recieved from the server */
-    char    sendBuff[] = "Hello TALOS!";
+    char    sendBuff[] = "Hello!";
     char rcvBuff[MAXDATASIZE] = {0};
 
     /* internet address family, stream based tcp, default protocol */
@@ -89,22 +88,25 @@ int client_connect()
     printf("New ctx\n");
     ctx = SSL_CTX_new(method);
 
-    /*SSL_CTX_use_certificate_file(ctx,
-            client_cert, SSL_FILETYPE_PEM);
-
-    SSL_CTX_use_PrivateKey_file(ctx,
-            client_key, SSL_FILETYPE_ASN1);
-
-
-   /* sgxStatus = enc_wolfSSL_CTX_load_verify_buffer(id, &ret,
-            ctx, ca_cert_der_2048, sizeof_ca_cert_der_2048, SSL_FILETYPE_ASN1);
-
-    if (sgxStatus != SGX_SUCCESS || ret != SSL_SUCCESS)
+    if (SSL_CTX_use_certificate_file(ctx, client_cert, SSL_FILETYPE_PEM) != 1)
     {
-        printf("Error loading cert\n");
-        return EXIT_FAILURE;
+        printf("SSL_CTX_use_certificate_file failed!\n");
+        return -1;
     }
-*/
+
+    if (SSL_CTX_use_PrivateKey_file(ctx, client_key, SSL_FILETYPE_PEM) != 1)
+    {
+        printf("SSL_CTX_use_PrivateKey_file failed!\n");
+        return -1;
+    }
+
+    // 检查SSL连接 所用的私钥与证书是否匹配【所以你仅有公钥证书是不够的】
+    if (!SSL_CTX_check_private_key(ctx))
+    {
+        printf("Private key does not match the certificate public key\n");
+        return -1;
+    }
+
 
     printf("New SSL\n");
     ssl = SSL_new(ctx);
@@ -117,8 +119,8 @@ int client_connect()
     printf("Set fd\n");
     SSL_set_fd(ssl, sockfd);
 
-
     printf("Connect\n");
+    // handshake with client!!
     SSL_connect(ssl);
 
     if (ssl->handshake_func == NULL)

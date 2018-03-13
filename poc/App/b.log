@@ -1,0 +1,274 @@
+execve("./app", ["./app"], [/* 78 vars */]) = 0
+brk(NULL)                               = 0x2509000
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+open("./tls/x86_64/libssl.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./tls/libssl.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./x86_64/libssl.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./libssl.so", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\360\317\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0775, st_size=669888, ...}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7efc22a5b000
+getcwd("/home/jiao/git/TaLoS/poc/App", 128) = 29
+mmap(NULL, 2272448, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7efc2260c000
+mprotect(0x7efc22635000, 2097152, PROT_NONE) = 0
+mmap(0x7efc22835000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x29000) = 0x7efc22835000
+close(3)                                = 0
+open("./tls/x86_64/libpthread.so.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./tls/libpthread.so.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./x86_64/libpthread.so.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./libpthread.so.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("/home/jiao/sgxsdk/sdk_libs/tls/x86_64/libpthread.so.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/home/jiao/sgxsdk/sdk_libs/tls/x86_64", 0x7ffd741989b0) = -1 ENOENT (No such file or directory)
+open("/home/jiao/sgxsdk/sdk_libs/tls/libpthread.so.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/home/jiao/sgxsdk/sdk_libs/tls", 0x7ffd741989b0) = -1 ENOENT (No such file or directory)
+open("/home/jiao/sgxsdk/sdk_libs/x86_64/libpthread.so.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/home/jiao/sgxsdk/sdk_libs/x86_64", 0x7ffd741989b0) = -1 ENOENT (No such file or directory)
+open("/home/jiao/sgxsdk/sdk_libs/libpthread.so.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/home/jiao/sgxsdk/sdk_libs", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+open("/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=134938, ...}) = 0
+mmap(NULL, 134938, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7efc22a3a000
+close(3)                                = 0
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\260`\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=138696, ...}) = 0
+mmap(NULL, 2212904, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7efc223ef000
+mprotect(0x7efc22407000, 2093056, PROT_NONE) = 0
+mmap(0x7efc22606000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x17000) = 0x7efc22606000
+mmap(0x7efc22608000, 13352, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7efc22608000
+close(3)                                = 0
+open("./tls/x86_64/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./tls/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./x86_64/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("/home/jiao/sgxsdk/sdk_libs/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\t\2\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=1868984, ...}) = 0
+mmap(NULL, 3971488, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7efc22025000
+mprotect(0x7efc221e5000, 2097152, PROT_NONE) = 0
+mmap(0x7efc223e5000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1c0000) = 0x7efc223e5000
+mmap(0x7efc223eb000, 14752, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7efc223eb000
+close(3)                                = 0
+open("./tls/x86_64/libsgx_urts_sim.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./tls/libsgx_urts_sim.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./x86_64/libsgx_urts_sim.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./libsgx_urts_sim.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("/home/jiao/sgxsdk/sdk_libs/libsgx_urts_sim.so", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\340h\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=183624, ...}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7efc22a39000
+mmap(NULL, 2245608, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7efc21e00000
+mprotect(0x7efc21e1e000, 2097152, PROT_NONE) = 0
+mmap(0x7efc2201e000, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1e000) = 0x7efc2201e000
+mmap(0x7efc22021000, 13288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7efc22021000
+close(3)                                = 0
+open("./tls/x86_64/libdl.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./tls/libdl.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./x86_64/libdl.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./libdl.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("/home/jiao/sgxsdk/sdk_libs/libdl.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\240\r\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=14608, ...}) = 0
+mmap(NULL, 2109680, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7efc21bfc000
+mprotect(0x7efc21bff000, 2093056, PROT_NONE) = 0
+mmap(0x7efc21dfe000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0x7efc21dfe000
+close(3)                                = 0
+open("./tls/x86_64/libcrypto.so.1.0.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./tls/libcrypto.so.1.0.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./x86_64/libcrypto.so.1.0.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./libcrypto.so.1.0.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("/home/jiao/sgxsdk/sdk_libs/libcrypto.so.1.0.0", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libcrypto.so.1.0.0", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\36\6\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=2361856, ...}) = 0
+mmap(NULL, 4471680, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7efc217b8000
+mprotect(0x7efc219d2000, 2093056, PROT_NONE) = 0
+mmap(0x7efc21bd1000, 163840, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x219000) = 0x7efc21bd1000
+mmap(0x7efc21bf9000, 11136, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7efc21bf9000
+close(3)                                = 0
+open("./tls/x86_64/libsgx_uae_service_sim.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./tls/libsgx_uae_service_sim.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./x86_64/libsgx_uae_service_sim.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./libsgx_uae_service_sim.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("/home/jiao/sgxsdk/sdk_libs/libsgx_uae_service_sim.so", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\27\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=30064, ...}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7efc22a38000
+mmap(NULL, 2117768, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7efc215b2000
+mprotect(0x7efc215b7000, 2093056, PROT_NONE) = 0
+mmap(0x7efc217b6000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x4000) = 0x7efc217b6000
+close(3)                                = 0
+open("./tls/x86_64/libstdc++.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./tls/libstdc++.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./x86_64/libstdc++.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./libstdc++.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("/home/jiao/sgxsdk/sdk_libs/libstdc++.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/usr/lib/x86_64-linux-gnu/libstdc++.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0 \235\10\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=1566440, ...}) = 0
+mmap(NULL, 3675136, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7efc21230000
+mprotect(0x7efc213a2000, 2097152, PROT_NONE) = 0
+mmap(0x7efc215a2000, 49152, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x172000) = 0x7efc215a2000
+mmap(0x7efc215ae000, 13312, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7efc215ae000
+close(3)                                = 0
+open("./tls/x86_64/libgcc_s.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./tls/libgcc_s.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./x86_64/libgcc_s.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./libgcc_s.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("/home/jiao/sgxsdk/sdk_libs/libgcc_s.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libgcc_s.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0p*\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=89696, ...}) = 0
+mmap(NULL, 2185488, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7efc2101a000
+mprotect(0x7efc21030000, 2093056, PROT_NONE) = 0
+mmap(0x7efc2122f000, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x15000) = 0x7efc2122f000
+close(3)                                = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7efc22a37000
+open("./tls/x86_64/libm.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./tls/libm.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./x86_64/libm.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./libm.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("/home/jiao/sgxsdk/sdk_libs/libm.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libm.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0V\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=1088952, ...}) = 0
+mmap(NULL, 3178744, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7efc20d11000
+mprotect(0x7efc20e19000, 2093056, PROT_NONE) = 0
+mmap(0x7efc21018000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x107000) = 0x7efc21018000
+close(3)                                = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7efc22a36000
+mmap(NULL, 16384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7efc22a32000
+arch_prctl(ARCH_SET_FS, 0x7efc22a34780) = 0
+mprotect(0x7efc223e5000, 16384, PROT_READ) = 0
+mprotect(0x7efc21018000, 4096, PROT_READ) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7efc22a31000
+mprotect(0x7efc215a2000, 40960, PROT_READ) = 0
+mprotect(0x7efc21dfe000, 4096, PROT_READ) = 0
+mprotect(0x7efc21bd1000, 114688, PROT_READ) = 0
+mprotect(0x7efc217b6000, 4096, PROT_READ) = 0
+mprotect(0x7efc2201e000, 4096, PROT_READ) = 0
+mprotect(0x7efc22606000, 4096, PROT_READ) = 0
+mprotect(0x7efc22835000, 4096, PROT_READ) = 0
+mprotect(0x601000, 4096, PROT_READ)     = 0
+mprotect(0x7efc22a5c000, 4096, PROT_READ) = 0
+munmap(0x7efc22a3a000, 134938)          = 0
+set_tid_address(0x7efc22a34a50)         = 5941
+set_robust_list(0x7efc22a34a60, 24)     = 0
+rt_sigaction(SIGRTMIN, {0x7efc223f4b50, [], SA_RESTORER|SA_SIGINFO, 0x7efc22400390}, NULL, 8) = 0
+rt_sigaction(SIGRT_1, {0x7efc223f4be0, [], SA_RESTORER|SA_RESTART|SA_SIGINFO, 0x7efc22400390}, NULL, 8) = 0
+rt_sigprocmask(SIG_UNBLOCK, [RTMIN RT_1], NULL, 8) = 0
+getrlimit(RLIMIT_STACK, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+brk(NULL)                               = 0x2509000
+brk(0x253b000)                          = 0x253b000
+getuid()                                = 1000
+socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3
+connect(3, {sa_family=AF_LOCAL, sun_path="/var/run/nscd/socket"}, 110) = -1 ENOENT (No such file or directory)
+close(3)                                = 0
+socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3
+connect(3, {sa_family=AF_LOCAL, sun_path="/var/run/nscd/socket"}, 110) = -1 ENOENT (No such file or directory)
+close(3)                                = 0
+open("/etc/nsswitch.conf", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=529, ...}) = 0
+read(3, "# /etc/nsswitch.conf\n#\n# Example"..., 4096) = 529
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+open("./tls/x86_64/libnss_compat.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./tls/libnss_compat.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./x86_64/libnss_compat.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./libnss_compat.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("/home/jiao/sgxsdk/sdk_libs/libnss_compat.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=134938, ...}) = 0
+mmap(NULL, 134938, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7efc22a3a000
+close(3)                                = 0
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libnss_compat.so.2", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\320\22\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=35688, ...}) = 0
+mmap(NULL, 2131040, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7efc20b08000
+mprotect(0x7efc20b10000, 2093056, PROT_NONE) = 0
+mmap(0x7efc20d0f000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x7000) = 0x7efc20d0f000
+close(3)                                = 0
+open("./tls/x86_64/libnsl.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./tls/libnsl.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./x86_64/libnsl.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./libnsl.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("/home/jiao/sgxsdk/sdk_libs/libnsl.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libnsl.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\360?\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=93128, ...}) = 0
+mmap(NULL, 2198104, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7efc208ef000
+mprotect(0x7efc20905000, 2093056, PROT_NONE) = 0
+mmap(0x7efc20b04000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x15000) = 0x7efc20b04000
+mmap(0x7efc20b06000, 6744, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7efc20b06000
+close(3)                                = 0
+mprotect(0x7efc20b04000, 4096, PROT_READ) = 0
+mprotect(0x7efc20d0f000, 4096, PROT_READ) = 0
+munmap(0x7efc22a3a000, 134938)          = 0
+open("./tls/x86_64/libnss_nis.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./tls/libnss_nis.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./x86_64/libnss_nis.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./libnss_nis.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("/home/jiao/sgxsdk/sdk_libs/libnss_nis.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=134938, ...}) = 0
+mmap(NULL, 134938, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7efc22a3a000
+close(3)                                = 0
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libnss_nis.so.2", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\260 \0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=47648, ...}) = 0
+mmap(NULL, 2143624, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7efc206e3000
+mprotect(0x7efc206ee000, 2093056, PROT_NONE) = 0
+mmap(0x7efc208ed000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xa000) = 0x7efc208ed000
+close(3)                                = 0
+open("./tls/x86_64/libnss_files.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./tls/libnss_files.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./x86_64/libnss_files.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("./libnss_files.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+open("/home/jiao/sgxsdk/sdk_libs/libnss_files.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libnss_files.so.2", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\260!\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=47600, ...}) = 0
+mmap(NULL, 2168600, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7efc204d1000
+mprotect(0x7efc204dc000, 2093056, PROT_NONE) = 0
+mmap(0x7efc206db000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xa000) = 0x7efc206db000
+mmap(0x7efc206dd000, 22296, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7efc206dd000
+close(3)                                = 0
+mprotect(0x7efc206db000, 4096, PROT_READ) = 0
+mprotect(0x7efc208ed000, 4096, PROT_READ) = 0
+munmap(0x7efc22a3a000, 134938)          = 0
+open("/etc/passwd", O_RDONLY|O_CLOEXEC) = 3
+lseek(3, 0, SEEK_CUR)                   = 0
+fstat(3, {st_mode=S_IFREG|0644, st_size=2482, ...}) = 0
+mmap(NULL, 2482, PROT_READ, MAP_SHARED, 3, 0) = 0x7efc22a5a000
+lseek(3, 2482, SEEK_SET)                = 2482
+munmap(0x7efc22a5a000, 2482)            = 0
+close(3)                                = 0
+open("/home/jiao/enclave.token", O_RDONLY) = 3
+fstat(3, {st_mode=S_IFREG|0664, st_size=1024, ...}) = 0
+read(3, "\1\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"..., 4096) = 1024
+open("enclave.signed.so", O_RDONLY)     = 4
+getcwd("/home/jiao/git/TaLoS/poc/App", 4096) = 29
+lstat("/home/jiao/git/TaLoS/poc/App/enclave.signed.so", {st_mode=S_IFLNK|0777, st_size=49, ...}) = 0
+readlink("/home/jiao/git/TaLoS/poc/App/enclave.signed.so", "../../src/libressl-2.4.1/crypto/"..., 4095) = 49
+lstat("/home/jiao/git/TaLoS/src", {st_mode=S_IFDIR|0775, st_size=4096, ...}) = 0
+lstat("/home/jiao/git/TaLoS/src/libressl-2.4.1", {st_mode=S_IFDIR|0775, st_size=4096, ...}) = 0
+lstat("/home/jiao/git/TaLoS/src/libressl-2.4.1/crypto", {st_mode=S_IFDIR|0775, st_size=4096, ...}) = 0
+lstat("/home/jiao/git/TaLoS/src/libressl-2.4.1/crypto/enclave.signed.so", {st_mode=S_IFREG|0664, st_size=10244192, ...}) = 0
+fstat(4, {st_mode=S_IFREG|0664, st_size=10244192, ...}) = 0
+mmap(NULL, 10244192, PROT_READ|PROT_WRITE, MAP_PRIVATE, 4, 0) = 0x7efc1fb0b000
+--- SIGSEGV {si_signo=SIGSEGV, si_code=SEGV_MAPERR, si_addr=0} ---
++++ killed by SIGSEGV (core dumped) +++

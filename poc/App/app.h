@@ -31,10 +31,10 @@
 #define BENCH_RSA
 #define ENCLAVE_FILENAME "enclave.signed.so"
 
-enum BenchmarkBounds {
+/*enum BenchmarkBounds {
 	/* these numbers are lower then default wolfSSL one to collect benchmark values faster for GUI */
-	numBlocks = 10, /* how many megs to test */
-	ntimes = 30 /* how many itteration to run RSA decrypt/encrypt */
-};
+//	numBlocks = 10, /* how many megs to test */
+//	ntimes = 30 /* how many itteration to run RSA decrypt/encrypt */
+//};
 
 #endif

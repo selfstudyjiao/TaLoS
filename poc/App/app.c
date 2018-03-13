@@ -25,14 +25,7 @@
 #include "string.h"
 #include "client-tls.h"
 #include "server-tls.h"
-
-/* Use Debug SGX ? */
-#if _DEBUG
-	#define DEBUG_VALUE SGX_DEBUG_FLAG
-#else
-	#define DEBUG_VALUE 1
-#endif
-
+//#include "certs_test.h"
 typedef struct func_args {
     int    argc;
     char** argv;
@@ -41,6 +34,7 @@ typedef struct func_args {
 
 int main(int argc, char* argv[]) /* not using since just testing w/ wc_test */
 {
+    printf("Start\n");
 	int ret = 0;
 	int updated = 0;
     func_args args = { 0 };
@@ -53,8 +47,6 @@ int main(int argc, char* argv[]) /* not using since just testing w/ wc_test */
                );
         return 0;
 	}
-
-    //initialize_enclave();
 
     switch(argv[1][1]) {
         case 'c':

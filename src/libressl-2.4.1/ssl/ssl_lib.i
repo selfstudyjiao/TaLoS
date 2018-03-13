@@ -18586,12 +18586,14 @@ SSL_peek(SSL *s, void *buf, int num)
 int
 ecall_SSL_write(SSL *s, const void *buf, int num) {
 
+    printf("Entering ecall_SSL_write\n");
  SSL* out_s = s;
 
  hashmap* m = get_ssl_hardening();
  SSL* in_s = (SSL*) hashmapGet(m, (unsigned long)out_s);
 
  SSL_copy_fields_to_in_struct(in_s, out_s);
+    printf("Run SSL_write\n");
  int ret = SSL_write(in_s, buf, num);
  SSL_copy_fields_to_out_struct(in_s, out_s);
  return ret;
@@ -18602,18 +18604,19 @@ ecall_SSL_write(SSL *s, const void *buf, int num) {
 int
 SSL_write(SSL *s, const void *buf, int num)
 {
+    printf("Entering SSL_write\n");
  if (s->handshake_func == 
-# 1530 "../ssl/ssl_lib.c" 3 4
+# 1533 "../ssl/ssl_lib.c" 3 4
                          ((void *)0)
-# 1530 "../ssl/ssl_lib.c"
+# 1533 "../ssl/ssl_lib.c"
                              ) {
-  ERR_put_error(20,(208),(276),"../ssl/ssl_lib.c",1531);
+  ERR_put_error(20,(208),(276),"../ssl/ssl_lib.c",1534);
   return (-1);
  }
 
  if (s->shutdown & 1) {
   s->rwstate = 1;
-  ERR_put_error(20,(208),(207),"../ssl/ssl_lib.c",1537);
+  ERR_put_error(20,(208),(207),"../ssl/ssl_lib.c",1540);
   return (-1);
  }
  return (s->method->ssl_write(s, buf, num));
@@ -18646,18 +18649,18 @@ SSL_shutdown(SSL *s)
 
 
  if (s->handshake_func == 
-# 1569 "../ssl/ssl_lib.c" 3 4
+# 1572 "../ssl/ssl_lib.c" 3 4
                          ((void *)0)
-# 1569 "../ssl/ssl_lib.c"
+# 1572 "../ssl/ssl_lib.c"
                              ) {
-  ERR_put_error(20,(224),(276),"../ssl/ssl_lib.c",1570);
+  ERR_put_error(20,(224),(276),"../ssl/ssl_lib.c",1573);
   return (-1);
  }
 
  if ((s != 
-# 1574 "../ssl/ssl_lib.c" 3 4
+# 1577 "../ssl/ssl_lib.c" 3 4
           ((void *)0)
-# 1574 "../ssl/ssl_lib.c"
+# 1577 "../ssl/ssl_lib.c"
               ) && !(SSL_state(s)&(0x1000|0x2000)))
   return (s->method->ssl_shutdown(s));
  else
@@ -18877,9 +18880,9 @@ SSL_CTX_ctrl(SSL_CTX *ctx, int cmd, long larg, void *parg)
 void* ssl_ctx_info_cb_address = 0;
 
 void ssl_ctx_info_fake_cb(const SSL *ssl, int type, int val) {
-# 1802 "../ssl/ssl_lib.c"
+# 1805 "../ssl/ssl_lib.c"
  return;
-# 1813 "../ssl/ssl_lib.c"
+# 1816 "../ssl/ssl_lib.c"
 }
 
 
@@ -18982,32 +18985,32 @@ struct stack_st_SSL_CIPHER *
 SSL_get_ciphers(const SSL *s)
 {
  if (s != 
-# 1914 "../ssl/ssl_lib.c" 3 4
+# 1917 "../ssl/ssl_lib.c" 3 4
          ((void *)0)
-# 1914 "../ssl/ssl_lib.c"
+# 1917 "../ssl/ssl_lib.c"
              ) {
   if (s->cipher_list != 
-# 1915 "../ssl/ssl_lib.c" 3 4
+# 1918 "../ssl/ssl_lib.c" 3 4
                        ((void *)0)
-# 1915 "../ssl/ssl_lib.c"
+# 1918 "../ssl/ssl_lib.c"
                            ) {
    return (s->cipher_list);
   } else if ((s->ctx != 
-# 1917 "../ssl/ssl_lib.c" 3 4
+# 1920 "../ssl/ssl_lib.c" 3 4
                        ((void *)0)
-# 1917 "../ssl/ssl_lib.c"
+# 1920 "../ssl/ssl_lib.c"
                            ) && (s->ctx->cipher_list != 
-# 1917 "../ssl/ssl_lib.c" 3 4
+# 1920 "../ssl/ssl_lib.c" 3 4
                                                         ((void *)0)
-# 1917 "../ssl/ssl_lib.c"
+# 1920 "../ssl/ssl_lib.c"
                                                             )) {
    return (s->ctx->cipher_list);
   }
  }
  return (
-# 1921 "../ssl/ssl_lib.c" 3 4
+# 1924 "../ssl/ssl_lib.c" 3 4
         ((void *)0)
-# 1921 "../ssl/ssl_lib.c"
+# 1924 "../ssl/ssl_lib.c"
             );
 }
 
@@ -19019,33 +19022,33 @@ struct stack_st_SSL_CIPHER *
 ssl_get_ciphers_by_id(SSL *s)
 {
  if (s != 
-# 1931 "../ssl/ssl_lib.c" 3 4
+# 1934 "../ssl/ssl_lib.c" 3 4
          ((void *)0)
-# 1931 "../ssl/ssl_lib.c"
+# 1934 "../ssl/ssl_lib.c"
              ) {
   if (s->cipher_list_by_id != 
-# 1932 "../ssl/ssl_lib.c" 3 4
+# 1935 "../ssl/ssl_lib.c" 3 4
                              ((void *)0)
-# 1932 "../ssl/ssl_lib.c"
+# 1935 "../ssl/ssl_lib.c"
                                  ) {
    return (s->cipher_list_by_id);
   } else if ((s->ctx != 
-# 1934 "../ssl/ssl_lib.c" 3 4
+# 1937 "../ssl/ssl_lib.c" 3 4
                        ((void *)0)
-# 1934 "../ssl/ssl_lib.c"
+# 1937 "../ssl/ssl_lib.c"
                            ) &&
       (s->ctx->cipher_list_by_id != 
-# 1935 "../ssl/ssl_lib.c" 3 4
+# 1938 "../ssl/ssl_lib.c" 3 4
                                    ((void *)0)
-# 1935 "../ssl/ssl_lib.c"
+# 1938 "../ssl/ssl_lib.c"
                                        )) {
    return (s->ctx->cipher_list_by_id);
   }
  }
  return (
-# 1939 "../ssl/ssl_lib.c" 3 4
+# 1942 "../ssl/ssl_lib.c" 3 4
         ((void *)0)
-# 1939 "../ssl/ssl_lib.c"
+# 1942 "../ssl/ssl_lib.c"
             );
 }
 
@@ -19057,36 +19060,36 @@ SSL_get_cipher_list(const SSL *s, int n)
  struct stack_st_SSL_CIPHER *sk;
 
  if (s == 
-# 1949 "../ssl/ssl_lib.c" 3 4
-         ((void *)0)
-# 1949 "../ssl/ssl_lib.c"
-             )
-  return (
-# 1950 "../ssl/ssl_lib.c" 3 4
-         ((void *)0)
-# 1950 "../ssl/ssl_lib.c"
-             );
- sk = SSL_get_ciphers(s);
- if ((sk == 
 # 1952 "../ssl/ssl_lib.c" 3 4
-           ((void *)0)
+         ((void *)0)
 # 1952 "../ssl/ssl_lib.c"
-               ) || (sk_num(((_STACK*) (1 ? (sk) : (struct stack_st_SSL_CIPHER*)0))) <= n))
+             )
   return (
 # 1953 "../ssl/ssl_lib.c" 3 4
          ((void *)0)
 # 1953 "../ssl/ssl_lib.c"
              );
- c = ((SSL_CIPHER *)sk_value(((_STACK*) (1 ? (sk) : (struct stack_st_SSL_CIPHER*)0)), (n)));
- if (c == 
+ sk = SSL_get_ciphers(s);
+ if ((sk == 
 # 1955 "../ssl/ssl_lib.c" 3 4
-         ((void *)0)
+           ((void *)0)
 # 1955 "../ssl/ssl_lib.c"
-             )
+               ) || (sk_num(((_STACK*) (1 ? (sk) : (struct stack_st_SSL_CIPHER*)0))) <= n))
   return (
 # 1956 "../ssl/ssl_lib.c" 3 4
          ((void *)0)
 # 1956 "../ssl/ssl_lib.c"
+             );
+ c = ((SSL_CIPHER *)sk_value(((_STACK*) (1 ? (sk) : (struct stack_st_SSL_CIPHER*)0)), (n)));
+ if (c == 
+# 1958 "../ssl/ssl_lib.c" 3 4
+         ((void *)0)
+# 1958 "../ssl/ssl_lib.c"
+             )
+  return (
+# 1959 "../ssl/ssl_lib.c" 3 4
+         ((void *)0)
+# 1959 "../ssl/ssl_lib.c"
              );
  return (c->name);
 }
@@ -19103,15 +19106,15 @@ SSL_CTX_set_cipher_list(SSL_CTX *ctx, const char *str)
 
  sk = ssl_create_cipher_list(ctx->method, &ctx->cipher_list,
      &ctx->cipher_list_by_id, str);
-# 1981 "../ssl/ssl_lib.c"
+# 1984 "../ssl/ssl_lib.c"
  if (sk == 
-# 1981 "../ssl/ssl_lib.c" 3 4
+# 1984 "../ssl/ssl_lib.c" 3 4
           ((void *)0)
-# 1981 "../ssl/ssl_lib.c"
+# 1984 "../ssl/ssl_lib.c"
               )
   return (0);
  else if (sk_num(((_STACK*) (1 ? (sk) : (struct stack_st_SSL_CIPHER*)0))) == 0) {
-  ERR_put_error(20,(269),(185),"../ssl/ssl_lib.c",1984);
+  ERR_put_error(20,(269),(185),"../ssl/ssl_lib.c",1987);
   return (0);
  }
  return (1);
@@ -19144,13 +19147,13 @@ SSL_set_cipher_list(SSL *s, const char *str)
  &s->cipher_list_by_id, str);
 
  if (sk == 
-# 2016 "../ssl/ssl_lib.c" 3 4
+# 2019 "../ssl/ssl_lib.c" 3 4
           ((void *)0)
-# 2016 "../ssl/ssl_lib.c"
+# 2019 "../ssl/ssl_lib.c"
               )
   return (0);
  else if (sk_num(((_STACK*) (1 ? (sk) : (struct stack_st_SSL_CIPHER*)0))) == 0) {
-  ERR_put_error(20,(271),(185),"../ssl/ssl_lib.c",2019);
+  ERR_put_error(20,(271),(185),"../ssl/ssl_lib.c",2022);
   return (0);
  }
  return (1);
@@ -19167,26 +19170,26 @@ SSL_get_shared_ciphers(const SSL *s, char *buf, int len)
  int i;
 
  if (s->session == 
-# 2035 "../ssl/ssl_lib.c" 3 4
+# 2038 "../ssl/ssl_lib.c" 3 4
                   ((void *)0) 
-# 2035 "../ssl/ssl_lib.c"
+# 2038 "../ssl/ssl_lib.c"
                        || s->session->ciphers == 
-# 2035 "../ssl/ssl_lib.c" 3 4
+# 2038 "../ssl/ssl_lib.c" 3 4
                                                  ((void *)0) 
-# 2035 "../ssl/ssl_lib.c"
+# 2038 "../ssl/ssl_lib.c"
                                                       || len < 2)
   return (
-# 2036 "../ssl/ssl_lib.c" 3 4
+# 2039 "../ssl/ssl_lib.c" 3 4
          ((void *)0)
-# 2036 "../ssl/ssl_lib.c"
+# 2039 "../ssl/ssl_lib.c"
              );
 
  sk = s->session->ciphers;
  if (sk_num(((_STACK*) (1 ? (sk) : (struct stack_st_SSL_CIPHER*)0))) == 0)
   return (
-# 2040 "../ssl/ssl_lib.c" 3 4
+# 2043 "../ssl/ssl_lib.c" 3 4
          ((void *)0)
-# 2040 "../ssl/ssl_lib.c"
+# 2043 "../ssl/ssl_lib.c"
              );
 
  buf[0] = '\0';
@@ -19202,9 +19205,9 @@ SSL_get_shared_ciphers(const SSL *s, char *buf, int len)
  }
 
  if ((end = strrchr(buf, ':')) != 
-# 2054 "../ssl/ssl_lib.c" 3 4
+# 2057 "../ssl/ssl_lib.c" 3 4
                                  ((void *)0)
-# 2054 "../ssl/ssl_lib.c"
+# 2057 "../ssl/ssl_lib.c"
                                      )
   *end = '\0';
  return (buf);
@@ -19218,9 +19221,9 @@ ssl_cipher_list_to_bytes(SSL *s, struct stack_st_SSL_CIPHER *sk, unsigned char *
  unsigned char *q;
 
  if (sk == 
-# 2066 "../ssl/ssl_lib.c" 3 4
+# 2069 "../ssl/ssl_lib.c" 3 4
           ((void *)0)
-# 2066 "../ssl/ssl_lib.c"
+# 2069 "../ssl/ssl_lib.c"
               )
   return (0);
  q = p;
@@ -19252,9 +19255,9 @@ ssl_bytes_to_cipher_list(SSL *s, const unsigned char *p, int num)
  CBS cbs;
  const SSL_CIPHER *c;
  struct stack_st_SSL_CIPHER *sk = 
-# 2096 "../ssl/ssl_lib.c" 3 4
+# 2099 "../ssl/ssl_lib.c" 3 4
                            ((void *)0)
-# 2096 "../ssl/ssl_lib.c"
+# 2099 "../ssl/ssl_lib.c"
                                ;
  unsigned long cipher_id;
  uint16_t cipher_value, max_version;
@@ -19266,28 +19269,28 @@ ssl_bytes_to_cipher_list(SSL *s, const unsigned char *p, int num)
 
 
  if (num < 2 || num > 0x10000 - 2) {
-  ERR_put_error(20,(161),(151),"../ssl/ssl_lib.c",2108)
+  ERR_put_error(20,(161),(151),"../ssl/ssl_lib.c",2111)
                                           ;
   return (
-# 2109 "../ssl/ssl_lib.c" 3 4
+# 2112 "../ssl/ssl_lib.c" 3 4
          ((void *)0)
-# 2109 "../ssl/ssl_lib.c"
+# 2112 "../ssl/ssl_lib.c"
              );
  }
 
  if ((sk = ((struct stack_st_SSL_CIPHER *)sk_new_null())) == 
-# 2112 "../ssl/ssl_lib.c" 3 4
+# 2115 "../ssl/ssl_lib.c" 3 4
                                        ((void *)0)
-# 2112 "../ssl/ssl_lib.c"
+# 2115 "../ssl/ssl_lib.c"
                                            ) {
-  ERR_put_error(20,(161),((1|64)),"../ssl/ssl_lib.c",2113);
+  ERR_put_error(20,(161),((1|64)),"../ssl/ssl_lib.c",2116);
   goto err;
  }
 
  CBS_init(&cbs, p, num);
  while (CBS_len(&cbs) > 0) {
   if (!CBS_get_u16(&cbs, &cipher_value)) {
-   ERR_put_error(20,(161),(151),"../ssl/ssl_lib.c",2121)
+   ERR_put_error(20,(161),(151),"../ssl/ssl_lib.c",2124)
                                            ;
    goto err;
   }
@@ -19295,16 +19298,16 @@ ssl_bytes_to_cipher_list(SSL *s, const unsigned char *p, int num)
   cipher_id = 0x03000000 | cipher_value;
 
   if (s->s3 != 
-# 2127 "../ssl/ssl_lib.c" 3 4
+# 2130 "../ssl/ssl_lib.c" 3 4
               ((void *)0) 
-# 2127 "../ssl/ssl_lib.c"
+# 2130 "../ssl/ssl_lib.c"
                    && cipher_id == 0x030000FF) {
 
 
 
 
    if (s->renegotiate) {
-    ERR_put_error(20,(161),(345),"../ssl/ssl_lib.c",2134)
+    ERR_put_error(20,(161),(345),"../ssl/ssl_lib.c",2137)
                                                ;
     ssl3_send_alert(s, 2,
         40);
@@ -19324,12 +19327,12 @@ ssl_bytes_to_cipher_list(SSL *s, const unsigned char *p, int num)
 
    max_version = ssl_max_server_version(s);
    if (max_version == 0 || s->version < max_version) {
-    ERR_put_error(20,(161),(373),"../ssl/ssl_lib.c",2154)
+    ERR_put_error(20,(161),(373),"../ssl/ssl_lib.c",2157)
                                      ;
     if (s->s3 != 
-# 2155 "../ssl/ssl_lib.c" 3 4
+# 2158 "../ssl/ssl_lib.c" 3 4
                 ((void *)0)
-# 2155 "../ssl/ssl_lib.c"
+# 2158 "../ssl/ssl_lib.c"
                     )
      ssl3_send_alert(s, 2,
          86);
@@ -19339,12 +19342,12 @@ ssl_bytes_to_cipher_list(SSL *s, const unsigned char *p, int num)
   }
 
   if ((c = ssl3_get_cipher_by_value(cipher_value)) != 
-# 2163 "../ssl/ssl_lib.c" 3 4
+# 2166 "../ssl/ssl_lib.c" 3 4
                                                      ((void *)0)
-# 2163 "../ssl/ssl_lib.c"
+# 2166 "../ssl/ssl_lib.c"
                                                          ) {
    if (!sk_push(((_STACK*) (1 ? (sk) : (struct stack_st_SSL_CIPHER*)0)), ((void*) (1 ? (c) : (SSL_CIPHER*)0)))) {
-    ERR_put_error(20,(161),((1|64)),"../ssl/ssl_lib.c",2166)
+    ERR_put_error(20,(161),((1|64)),"../ssl/ssl_lib.c",2169)
                              ;
     goto err;
    }
@@ -19357,9 +19360,9 @@ err:
  sk_free(((_STACK*) (1 ? (sk) : (struct stack_st_SSL_CIPHER*)0)));
 
  return (
-# 2177 "../ssl/ssl_lib.c" 3 4
+# 2180 "../ssl/ssl_lib.c" 3 4
         ((void *)0)
-# 2177 "../ssl/ssl_lib.c"
+# 2180 "../ssl/ssl_lib.c"
             );
 }
 
@@ -19382,9 +19385,9 @@ void ecall_SSL_get_servername(const SSL *s, int type, char* servername, int* len
 
 
  if (sn == 
-# 2198 "../ssl/ssl_lib.c" 3 4
+# 2201 "../ssl/ssl_lib.c" 3 4
           ((void *)0)
-# 2198 "../ssl/ssl_lib.c"
+# 2201 "../ssl/ssl_lib.c"
               ) {
   servername[0] = '\0';
   *len = 0;
@@ -19398,9 +19401,9 @@ SSL_get_servername(const SSL *s, const int type)
 {
  if (type != 0)
   return (
-# 2210 "../ssl/ssl_lib.c" 3 4
+# 2213 "../ssl/ssl_lib.c" 3 4
          ((void *)0)
-# 2210 "../ssl/ssl_lib.c"
+# 2213 "../ssl/ssl_lib.c"
              );
 
  return (s->session && !s->tlsext_hostname ?
@@ -19417,7 +19420,7 @@ SSL_get_servername_type(const SSL *s)
   return (0);
  return (-1);
 }
-# 2258 "../ssl/ssl_lib.c"
+# 2261 "../ssl/ssl_lib.c"
 int
 ecall_SSL_select_next_proto(unsigned char **out, unsigned char *outlen,
     const unsigned char *server, unsigned int server_len,
@@ -19464,7 +19467,7 @@ found:
  *outlen = result[0];
  return (status);
 }
-# 2314 "../ssl/ssl_lib.c"
+# 2317 "../ssl/ssl_lib.c"
 void
 SSL_get0_next_proto_negotiated(const SSL *s, const unsigned char **data,
     unsigned *len)
@@ -19476,7 +19479,7 @@ SSL_get0_next_proto_negotiated(const SSL *s, const unsigned char **data,
   *len = s->next_proto_negotiated_len;
  }
 }
-# 2337 "../ssl/ssl_lib.c"
+# 2340 "../ssl/ssl_lib.c"
 void ecall_SSL_CTX_set_next_protos_advertised_cb(SSL_CTX *s, void *cb, void *arg) {
  int (*callback) (SSL *ssl, const unsigned char **out, unsigned int *outlen, void *arg) = (int (*) (SSL *ssl, const unsigned char **out, unsigned int *outlen, void *arg))cb;
  SSL_CTX_set_next_protos_advertised_cb(s, callback, arg);
@@ -19488,11 +19491,11 @@ SSL_CTX_set_next_protos_advertised_cb(SSL_CTX *ctx, int (*cb) (SSL *ssl,
  ctx->next_protos_advertised_cb = cb;
  ctx->next_protos_advertised_cb_arg = arg;
 }
-# 2361 "../ssl/ssl_lib.c"
+# 2364 "../ssl/ssl_lib.c"
 int (*ssl_ctx_set_next_proto_select_cb_address)(SSL *s, unsigned char **out, unsigned char *outlen, const unsigned char *in, unsigned int inlen, void *arg) = 
-# 2361 "../ssl/ssl_lib.c" 3 4
+# 2364 "../ssl/ssl_lib.c" 3 4
                                                                                                                                                              ((void *)0)
-# 2361 "../ssl/ssl_lib.c"
+# 2364 "../ssl/ssl_lib.c"
                                                                                                                                                                  ;
 int ssl_ctx_set_next_proto_select_fake_cb(SSL *s, unsigned char **out, unsigned char *outlen, const unsigned char *in, unsigned int inlen, void *arg) {
  int retval = -1;
@@ -19541,9 +19544,9 @@ SSL_CTX_set_alpn_protos(SSL_CTX *ctx, const unsigned char *protos,
 {
  free(ctx->alpn_client_proto_list);
  if ((ctx->alpn_client_proto_list = malloc(protos_len)) == 
-# 2408 "../ssl/ssl_lib.c" 3 4
+# 2411 "../ssl/ssl_lib.c" 3 4
                                                           ((void *)0)
-# 2408 "../ssl/ssl_lib.c"
+# 2411 "../ssl/ssl_lib.c"
                                                               )
   return (1);
  memcpy(ctx->alpn_client_proto_list, protos, protos_len);
@@ -19580,9 +19583,9 @@ SSL_set_alpn_protos(SSL *ssl, const unsigned char* protos,
 {
  free(ssl->alpn_client_proto_list);
  if ((ssl->alpn_client_proto_list = malloc(protos_len)) == 
-# 2443 "../ssl/ssl_lib.c" 3 4
+# 2446 "../ssl/ssl_lib.c" 3 4
                                                           ((void *)0)
-# 2443 "../ssl/ssl_lib.c"
+# 2446 "../ssl/ssl_lib.c"
                                                               )
   return (1);
  memcpy(ssl->alpn_client_proto_list, protos, protos_len);
@@ -19624,16 +19627,16 @@ SSL_get0_alpn_selected(const SSL *ssl, const unsigned char **data,
     unsigned *len)
 {
  *data = 
-# 2483 "../ssl/ssl_lib.c" 3 4
+# 2486 "../ssl/ssl_lib.c" 3 4
         ((void *)0)
-# 2483 "../ssl/ssl_lib.c"
+# 2486 "../ssl/ssl_lib.c"
             ;
  *len = 0;
 
  if (ssl->s3 != 
-# 2486 "../ssl/ssl_lib.c" 3 4
+# 2489 "../ssl/ssl_lib.c" 3 4
                ((void *)0)
-# 2486 "../ssl/ssl_lib.c"
+# 2489 "../ssl/ssl_lib.c"
                    ) {
   *data = ssl->s3->alpn_selected;
   *len = ssl->s3->alpn_selected_len;
@@ -19661,7 +19664,7 @@ ssl_session_hash(const SSL_SESSION *a)
      ((unsigned long)a->session_id[3]<<24L);
  return (l);
 }
-# 2521 "../ssl/ssl_lib.c"
+# 2524 "../ssl/ssl_lib.c"
 static int
 ssl_session_cmp(const SSL_SESSION *a, const SSL_SESSION *b)
 {
@@ -19693,55 +19696,55 @@ SSL_CTX *
 SSL_CTX_new(const SSL_METHOD *meth)
 {
  SSL_CTX *ret = 
-# 2551 "../ssl/ssl_lib.c" 3 4
+# 2554 "../ssl/ssl_lib.c" 3 4
                ((void *)0)
-# 2551 "../ssl/ssl_lib.c"
+# 2554 "../ssl/ssl_lib.c"
                    ;
 
  if (meth == 
-# 2553 "../ssl/ssl_lib.c" 3 4
+# 2556 "../ssl/ssl_lib.c" 3 4
             ((void *)0)
-# 2553 "../ssl/ssl_lib.c"
+# 2556 "../ssl/ssl_lib.c"
                 ) {
-  ERR_put_error(20,(169),(196),"../ssl/ssl_lib.c",2554);
+  ERR_put_error(20,(169),(196),"../ssl/ssl_lib.c",2557);
   return (
-# 2555 "../ssl/ssl_lib.c" 3 4
+# 2558 "../ssl/ssl_lib.c" 3 4
          ((void *)0)
-# 2555 "../ssl/ssl_lib.c"
+# 2558 "../ssl/ssl_lib.c"
              );
  }
 
  if (SSL_get_ex_data_X509_STORE_CTX_idx() < 0) {
-  ERR_put_error(20,(169),(269),"../ssl/ssl_lib.c",2560)
+  ERR_put_error(20,(169),(269),"../ssl/ssl_lib.c",2563)
                                              ;
   goto err;
  }
  ret = calloc(1, sizeof(SSL_CTX));
  if (ret == 
-# 2564 "../ssl/ssl_lib.c" 3 4
+# 2567 "../ssl/ssl_lib.c" 3 4
            ((void *)0)
-# 2564 "../ssl/ssl_lib.c"
+# 2567 "../ssl/ssl_lib.c"
                )
   goto err;
 
  ret->method = meth;
 
  ret->cert_store = 
-# 2569 "../ssl/ssl_lib.c" 3 4
+# 2572 "../ssl/ssl_lib.c" 3 4
                   ((void *)0)
-# 2569 "../ssl/ssl_lib.c"
+# 2572 "../ssl/ssl_lib.c"
                       ;
  ret->session_cache_mode = 0x0002;
  ret->session_cache_size = (1024*20);
  ret->session_cache_head = 
-# 2572 "../ssl/ssl_lib.c" 3 4
+# 2575 "../ssl/ssl_lib.c" 3 4
                           ((void *)0)
-# 2572 "../ssl/ssl_lib.c"
+# 2575 "../ssl/ssl_lib.c"
                               ;
  ret->session_cache_tail = 
-# 2573 "../ssl/ssl_lib.c" 3 4
+# 2576 "../ssl/ssl_lib.c" 3 4
                           ((void *)0)
-# 2573 "../ssl/ssl_lib.c"
+# 2576 "../ssl/ssl_lib.c"
                               ;
 
 
@@ -19758,45 +19761,45 @@ SSL_CTX_new(const SSL_METHOD *meth)
  ret->quiet_shutdown = 0;
 
  ret->info_callback = 
-# 2588 "../ssl/ssl_lib.c" 3 4
+# 2591 "../ssl/ssl_lib.c" 3 4
                      ((void *)0)
-# 2588 "../ssl/ssl_lib.c"
+# 2591 "../ssl/ssl_lib.c"
                          ;
 
  ret->app_verify_callback = 0;
  ret->app_verify_arg = 
-# 2591 "../ssl/ssl_lib.c" 3 4
+# 2594 "../ssl/ssl_lib.c" 3 4
                       ((void *)0)
-# 2591 "../ssl/ssl_lib.c"
+# 2594 "../ssl/ssl_lib.c"
                           ;
 
  ret->max_cert_list = 1024*100;
  ret->read_ahead = 0;
  ret->msg_callback = 0;
  ret->msg_callback_arg = 
-# 2596 "../ssl/ssl_lib.c" 3 4
+# 2599 "../ssl/ssl_lib.c" 3 4
                         ((void *)0)
-# 2596 "../ssl/ssl_lib.c"
+# 2599 "../ssl/ssl_lib.c"
                             ;
  ret->verify_mode = 0x00;
  ret->sid_ctx_length = 0;
  ret->default_verify_callback = 
-# 2599 "../ssl/ssl_lib.c" 3 4
+# 2602 "../ssl/ssl_lib.c" 3 4
                                ((void *)0)
-# 2599 "../ssl/ssl_lib.c"
+# 2602 "../ssl/ssl_lib.c"
                                    ;
  if ((ret->cert = ssl_cert_new()) == 
-# 2600 "../ssl/ssl_lib.c" 3 4
+# 2603 "../ssl/ssl_lib.c" 3 4
                                     ((void *)0)
-# 2600 "../ssl/ssl_lib.c"
+# 2603 "../ssl/ssl_lib.c"
                                         )
   goto err;
 
  ret->default_passwd_callback = 0;
  ret->default_passwd_callback_userdata = 
-# 2604 "../ssl/ssl_lib.c" 3 4
+# 2607 "../ssl/ssl_lib.c" 3 4
                                         ((void *)0)
-# 2604 "../ssl/ssl_lib.c"
+# 2607 "../ssl/ssl_lib.c"
                                             ;
  ret->client_cert_cb = 0;
  ret->app_gen_cookie_cb = 0;
@@ -19804,28 +19807,28 @@ SSL_CTX_new(const SSL_METHOD *meth)
 
  ret->sessions = ((struct lhash_st_SSL_SESSION *)lh_new(ssl_session_LHASH_HASH, ssl_session_LHASH_COMP));
  if (ret->sessions == 
-# 2610 "../ssl/ssl_lib.c" 3 4
+# 2613 "../ssl/ssl_lib.c" 3 4
                      ((void *)0)
-# 2610 "../ssl/ssl_lib.c"
+# 2613 "../ssl/ssl_lib.c"
                          )
   goto err;
  ret->cert_store = X509_STORE_new();
  if (ret->cert_store == 
-# 2613 "../ssl/ssl_lib.c" 3 4
+# 2616 "../ssl/ssl_lib.c" 3 4
                        ((void *)0)
-# 2613 "../ssl/ssl_lib.c"
+# 2616 "../ssl/ssl_lib.c"
                            )
   goto err;
 
  ssl_create_cipher_list(ret->method, &ret->cipher_list,
      &ret->cipher_list_by_id, "ALL:!aNULL:!eNULL:!SSLv2");
  if (ret->cipher_list == 
-# 2618 "../ssl/ssl_lib.c" 3 4
+# 2621 "../ssl/ssl_lib.c" 3 4
                         ((void *)0) 
-# 2618 "../ssl/ssl_lib.c"
+# 2621 "../ssl/ssl_lib.c"
                              ||
      sk_num(((_STACK*) (1 ? (ret->cipher_list) : (struct stack_st_SSL_CIPHER*)0))) <= 0) {
-  ERR_put_error(20,(169),(161),"../ssl/ssl_lib.c",2620);
+  ERR_put_error(20,(169),(161),"../ssl/ssl_lib.c",2623);
   goto err2;
  }
 
@@ -19834,46 +19837,46 @@ SSL_CTX_new(const SSL_METHOD *meth)
   goto err;
 
  if ((ret->md5 = EVP_get_digestbyname("ssl3-md5")) == 
-# 2628 "../ssl/ssl_lib.c" 3 4
+# 2631 "../ssl/ssl_lib.c" 3 4
                                                      ((void *)0)
-# 2628 "../ssl/ssl_lib.c"
+# 2631 "../ssl/ssl_lib.c"
                                                          ) {
-  ERR_put_error(20,(169),(242),"../ssl/ssl_lib.c",2630)
+  ERR_put_error(20,(169),(242),"../ssl/ssl_lib.c",2633)
                                              ;
   goto err2;
  }
  if ((ret->sha1 = EVP_get_digestbyname("ssl3-sha1")) == 
-# 2633 "../ssl/ssl_lib.c" 3 4
+# 2636 "../ssl/ssl_lib.c" 3 4
                                                        ((void *)0)
-# 2633 "../ssl/ssl_lib.c"
+# 2636 "../ssl/ssl_lib.c"
                                                            ) {
-  ERR_put_error(20,(169),(243),"../ssl/ssl_lib.c",2635)
+  ERR_put_error(20,(169),(243),"../ssl/ssl_lib.c",2638)
                                               ;
   goto err2;
  }
 
  if ((ret->client_CA = ((struct stack_st_X509_NAME *)sk_new_null())) == 
-# 2639 "../ssl/ssl_lib.c" 3 4
+# 2642 "../ssl/ssl_lib.c" 3 4
                                                   ((void *)0)
-# 2639 "../ssl/ssl_lib.c"
+# 2642 "../ssl/ssl_lib.c"
                                                       )
   goto err;
 
  CRYPTO_new_ex_data(2, ret, &ret->ex_data);
 
  ret->extra_certs = 
-# 2644 "../ssl/ssl_lib.c" 3 4
+# 2647 "../ssl/ssl_lib.c" 3 4
                    ((void *)0)
-# 2644 "../ssl/ssl_lib.c"
+# 2647 "../ssl/ssl_lib.c"
                        ;
 
  ret->max_send_fragment = 16384;
 
  ret->tlsext_servername_callback = 0;
  ret->tlsext_servername_arg = 
-# 2649 "../ssl/ssl_lib.c" 3 4
+# 2652 "../ssl/ssl_lib.c" 3 4
                              ((void *)0)
-# 2649 "../ssl/ssl_lib.c"
+# 2652 "../ssl/ssl_lib.c"
                                  ;
 
 
@@ -19883,31 +19886,31 @@ SSL_CTX_new(const SSL_METHOD *meth)
 
  ret->tlsext_status_cb = 0;
  ret->tlsext_status_arg = 
-# 2657 "../ssl/ssl_lib.c" 3 4
+# 2660 "../ssl/ssl_lib.c" 3 4
                          ((void *)0)
-# 2657 "../ssl/ssl_lib.c"
+# 2660 "../ssl/ssl_lib.c"
                              ;
 
  ret->next_protos_advertised_cb = 0;
  ret->next_proto_select_cb = 0;
 
  ret->client_cert_engine = 
-# 2662 "../ssl/ssl_lib.c" 3 4
+# 2665 "../ssl/ssl_lib.c" 3 4
                           ((void *)0)
-# 2662 "../ssl/ssl_lib.c"
+# 2665 "../ssl/ssl_lib.c"
                               ;
-# 2685 "../ssl/ssl_lib.c"
+# 2688 "../ssl/ssl_lib.c"
  ret->options |= 0x00000004L;
 
  return (ret);
 err:
- ERR_put_error(20,(169),((1|64)),"../ssl/ssl_lib.c",2689);
+ ERR_put_error(20,(169),((1|64)),"../ssl/ssl_lib.c",2692);
 err2:
  SSL_CTX_free(ret);
  return (
-# 2692 "../ssl/ssl_lib.c" 3 4
+# 2695 "../ssl/ssl_lib.c" 3 4
         ((void *)0)
-# 2692 "../ssl/ssl_lib.c"
+# 2695 "../ssl/ssl_lib.c"
             );
 }
 
@@ -19921,69 +19924,69 @@ SSL_CTX_free(SSL_CTX *a)
  int i;
 
  if (a == 
-# 2704 "../ssl/ssl_lib.c" 3 4
+# 2707 "../ssl/ssl_lib.c" 3 4
          ((void *)0)
-# 2704 "../ssl/ssl_lib.c"
+# 2707 "../ssl/ssl_lib.c"
              )
   return;
 
- i = CRYPTO_add_lock(&a->references,-1,12,"../ssl/ssl_lib.c",2707);
+ i = CRYPTO_add_lock(&a->references,-1,12,"../ssl/ssl_lib.c",2710);
  if (i > 0)
   return;
 
  if (a->param)
   X509_VERIFY_PARAM_free(a->param);
-# 2723 "../ssl/ssl_lib.c"
+# 2726 "../ssl/ssl_lib.c"
  if (a->sessions != 
-# 2723 "../ssl/ssl_lib.c" 3 4
+# 2726 "../ssl/ssl_lib.c" 3 4
                    ((void *)0)
-# 2723 "../ssl/ssl_lib.c"
+# 2726 "../ssl/ssl_lib.c"
                        )
   SSL_CTX_flush_sessions(a, 0);
 
  CRYPTO_free_ex_data(2, a, &a->ex_data);
 
  if (a->sessions != 
-# 2728 "../ssl/ssl_lib.c" 3 4
+# 2731 "../ssl/ssl_lib.c" 3 4
                    ((void *)0)
-# 2728 "../ssl/ssl_lib.c"
+# 2731 "../ssl/ssl_lib.c"
                        )
   lh_free(((_LHASH *)((void*) (1 ? a->sessions : (struct lhash_st_SSL_SESSION*)0))));
 
  if (a->cert_store != 
-# 2731 "../ssl/ssl_lib.c" 3 4
+# 2734 "../ssl/ssl_lib.c" 3 4
                      ((void *)0)
-# 2731 "../ssl/ssl_lib.c"
+# 2734 "../ssl/ssl_lib.c"
                          )
   X509_STORE_free(a->cert_store);
  if (a->cipher_list != 
-# 2733 "../ssl/ssl_lib.c" 3 4
+# 2736 "../ssl/ssl_lib.c" 3 4
                       ((void *)0)
-# 2733 "../ssl/ssl_lib.c"
+# 2736 "../ssl/ssl_lib.c"
                           )
   sk_free(((_STACK*) (1 ? (a->cipher_list) : (struct stack_st_SSL_CIPHER*)0)));
  if (a->cipher_list_by_id != 
-# 2735 "../ssl/ssl_lib.c" 3 4
+# 2738 "../ssl/ssl_lib.c" 3 4
                             ((void *)0)
-# 2735 "../ssl/ssl_lib.c"
+# 2738 "../ssl/ssl_lib.c"
                                 )
   sk_free(((_STACK*) (1 ? (a->cipher_list_by_id) : (struct stack_st_SSL_CIPHER*)0)));
  if (a->cert != 
-# 2737 "../ssl/ssl_lib.c" 3 4
+# 2740 "../ssl/ssl_lib.c" 3 4
                ((void *)0)
-# 2737 "../ssl/ssl_lib.c"
+# 2740 "../ssl/ssl_lib.c"
                    )
   ssl_cert_free(a->cert);
  if (a->client_CA != 
-# 2739 "../ssl/ssl_lib.c" 3 4
+# 2742 "../ssl/ssl_lib.c" 3 4
                     ((void *)0)
-# 2739 "../ssl/ssl_lib.c"
+# 2742 "../ssl/ssl_lib.c"
                         )
   sk_pop_free(((_STACK*) (1 ? (a->client_CA) : (struct stack_st_X509_NAME*)0)), ((void (*)(void *)) ((1 ? (X509_NAME_free) : (void (*)(X509_NAME *))0))));
  if (a->extra_certs != 
-# 2741 "../ssl/ssl_lib.c" 3 4
+# 2744 "../ssl/ssl_lib.c" 3 4
                       ((void *)0)
-# 2741 "../ssl/ssl_lib.c"
+# 2744 "../ssl/ssl_lib.c"
                           )
   sk_pop_free(((_STACK*) (1 ? (a->extra_certs) : (struct stack_st_X509*)0)), ((void (*)(void *)) ((1 ? (X509_free) : (void (*)(X509 *))0))));
 
@@ -20039,9 +20042,9 @@ SSL_CTX_set_default_passwd_cb_userdata(SSL_CTX *ctx, void *u)
 
 
 int (*ssl_ctx_set_cert_verify_cb_address)(X509_STORE_CTX *, void *) = 
-# 2795 "../ssl/ssl_lib.c" 3 4
+# 2798 "../ssl/ssl_lib.c" 3 4
                                                                      ((void *)0)
-# 2795 "../ssl/ssl_lib.c"
+# 2798 "../ssl/ssl_lib.c"
                                                                          ;
 int ssl_ctx_set_cert_verify_fake_cb(X509_STORE_CTX * ctx, void *arg) {
  if (ssl_ctx_set_cert_verify_cb_address) {
@@ -20071,9 +20074,9 @@ SSL_CTX_set_cert_verify_callback(SSL_CTX *ctx, int (*cb)(X509_STORE_CTX *,
 
 
 int (*ssl_ctx_set_verify_callback_address)(int, X509_STORE_CTX *) = 
-# 2823 "../ssl/ssl_lib.c" 3 4
+# 2826 "../ssl/ssl_lib.c" 3 4
                                                                    ((void *)0)
-# 2823 "../ssl/ssl_lib.c"
+# 2826 "../ssl/ssl_lib.c"
                                                                        ;
 int ssl_ctx_set_verify_fake_callback(int mode, X509_STORE_CTX *ctx) {
  if (ssl_ctx_set_verify_callback_address) {
@@ -20121,98 +20124,98 @@ ssl_set_cert_masks(CERT *c, const SSL_CIPHER *cipher)
  int have_ecc_cert, ecdh_ok, ecdsa_ok;
  int have_ecdh_tmp;
  X509 *x = 
-# 2869 "../ssl/ssl_lib.c" 3 4
+# 2872 "../ssl/ssl_lib.c" 3 4
            ((void *)0)
-# 2869 "../ssl/ssl_lib.c"
+# 2872 "../ssl/ssl_lib.c"
                ;
  EVP_PKEY *ecc_pkey = 
-# 2870 "../ssl/ssl_lib.c" 3 4
+# 2873 "../ssl/ssl_lib.c" 3 4
                      ((void *)0)
-# 2870 "../ssl/ssl_lib.c"
+# 2873 "../ssl/ssl_lib.c"
                          ;
  int signature_nid = 0, pk_nid = 0, md_nid = 0;
 
  if (c == 
-# 2873 "../ssl/ssl_lib.c" 3 4
+# 2876 "../ssl/ssl_lib.c" 3 4
          ((void *)0)
-# 2873 "../ssl/ssl_lib.c"
+# 2876 "../ssl/ssl_lib.c"
              )
   return;
 
  dh_tmp = (c->dh_tmp != 
-# 2876 "../ssl/ssl_lib.c" 3 4
+# 2879 "../ssl/ssl_lib.c" 3 4
                        ((void *)0) 
-# 2876 "../ssl/ssl_lib.c"
+# 2879 "../ssl/ssl_lib.c"
                             || c->dh_tmp_cb != 
-# 2876 "../ssl/ssl_lib.c" 3 4
+# 2879 "../ssl/ssl_lib.c" 3 4
                                                ((void *)0) 
-# 2876 "../ssl/ssl_lib.c"
+# 2879 "../ssl/ssl_lib.c"
                                                     ||
      c->dh_tmp_auto != 0);
 
  have_ecdh_tmp = (c->ecdh_tmp != 
-# 2879 "../ssl/ssl_lib.c" 3 4
+# 2882 "../ssl/ssl_lib.c" 3 4
                                 ((void *)0) 
-# 2879 "../ssl/ssl_lib.c"
+# 2882 "../ssl/ssl_lib.c"
                                      || c->ecdh_tmp_cb != 
-# 2879 "../ssl/ssl_lib.c" 3 4
+# 2882 "../ssl/ssl_lib.c" 3 4
                                                           ((void *)0) 
-# 2879 "../ssl/ssl_lib.c"
+# 2882 "../ssl/ssl_lib.c"
                                                                ||
      c->ecdh_tmp_auto != 0);
  cpk = &(c->pkeys[0]);
  rsa_enc = (cpk->x509 != 
-# 2882 "../ssl/ssl_lib.c" 3 4
+# 2885 "../ssl/ssl_lib.c" 3 4
                         ((void *)0) 
-# 2882 "../ssl/ssl_lib.c"
+# 2885 "../ssl/ssl_lib.c"
                              && cpk->privatekey != 
-# 2882 "../ssl/ssl_lib.c" 3 4
+# 2885 "../ssl/ssl_lib.c" 3 4
                                                    ((void *)0)
-# 2882 "../ssl/ssl_lib.c"
+# 2885 "../ssl/ssl_lib.c"
                                                        );
  cpk = &(c->pkeys[1]);
  rsa_sign = (cpk->x509 != 
-# 2884 "../ssl/ssl_lib.c" 3 4
+# 2887 "../ssl/ssl_lib.c" 3 4
                          ((void *)0) 
-# 2884 "../ssl/ssl_lib.c"
+# 2887 "../ssl/ssl_lib.c"
                               && cpk->privatekey != 
-# 2884 "../ssl/ssl_lib.c" 3 4
+# 2887 "../ssl/ssl_lib.c" 3 4
                                                     ((void *)0)
-# 2884 "../ssl/ssl_lib.c"
+# 2887 "../ssl/ssl_lib.c"
                                                         );
  cpk = &(c->pkeys[2]);
  dsa_sign = (cpk->x509 != 
-# 2886 "../ssl/ssl_lib.c" 3 4
+# 2889 "../ssl/ssl_lib.c" 3 4
                          ((void *)0) 
-# 2886 "../ssl/ssl_lib.c"
+# 2889 "../ssl/ssl_lib.c"
                               && cpk->privatekey != 
-# 2886 "../ssl/ssl_lib.c" 3 4
+# 2889 "../ssl/ssl_lib.c" 3 4
                                                     ((void *)0)
-# 2886 "../ssl/ssl_lib.c"
+# 2889 "../ssl/ssl_lib.c"
                                                         );
 
  cpk = &(c->pkeys[5]);
  have_ecc_cert = (cpk->x509 != 
-# 2889 "../ssl/ssl_lib.c" 3 4
+# 2892 "../ssl/ssl_lib.c" 3 4
                               ((void *)0) 
-# 2889 "../ssl/ssl_lib.c"
+# 2892 "../ssl/ssl_lib.c"
                                    && cpk->privatekey != 
-# 2889 "../ssl/ssl_lib.c" 3 4
+# 2892 "../ssl/ssl_lib.c" 3 4
                                                          ((void *)0)
-# 2889 "../ssl/ssl_lib.c"
+# 2892 "../ssl/ssl_lib.c"
                                                              );
  mask_k = 0;
  mask_a = 0;
 
  cpk = &(c->pkeys[6]);
  if (cpk->x509 != 
-# 2894 "../ssl/ssl_lib.c" 3 4
+# 2897 "../ssl/ssl_lib.c" 3 4
                  ((void *)0) 
-# 2894 "../ssl/ssl_lib.c"
+# 2897 "../ssl/ssl_lib.c"
                       && cpk->privatekey !=
-# 2894 "../ssl/ssl_lib.c" 3 4
+# 2897 "../ssl/ssl_lib.c" 3 4
                                            ((void *)0)
-# 2894 "../ssl/ssl_lib.c"
+# 2897 "../ssl/ssl_lib.c"
                                                ) {
   mask_k |= 0x00000200L;
   mask_a |= 0x00000200L;
@@ -20298,7 +20301,7 @@ ssl_check_srvr_ecc_cert_and_alg(X509 *x, SSL *s)
  if (alg_k & 0x00000040L || alg_k & 0x00000020L) {
 
   if ((((x)->ex_flags & 0x2) && !((x)->ex_kusage & (0x0008)))) {
-   ERR_put_error(20,(279),(317),"../ssl/ssl_lib.c",2980)
+   ERR_put_error(20,(279),(317),"../ssl/ssl_lib.c",2983)
                                             ;
    return (0);
   }
@@ -20306,7 +20309,7 @@ ssl_check_srvr_ecc_cert_and_alg(X509 *x, SSL *s)
       0x0303) {
 
    if (pk_nid != 408) {
-    ERR_put_error(20,(279),(323),"../ssl/ssl_lib.c",2988)
+    ERR_put_error(20,(279),(323),"../ssl/ssl_lib.c",2991)
                                                   ;
     return (0);
    }
@@ -20315,7 +20318,7 @@ ssl_check_srvr_ecc_cert_and_alg(X509 *x, SSL *s)
       0x0303) {
 
    if (pk_nid != 6 && pk_nid != 19) {
-    ERR_put_error(20,(279),(322),"../ssl/ssl_lib.c",2997)
+    ERR_put_error(20,(279),(322),"../ssl/ssl_lib.c",3000)
                                                  ;
     return (0);
    }
@@ -20324,7 +20327,7 @@ ssl_check_srvr_ecc_cert_and_alg(X509 *x, SSL *s)
  if (alg_a & 0x00000040L) {
 
   if ((((x)->ex_flags & 0x2) && !((x)->ex_kusage & (0x0080)))) {
-   ERR_put_error(20,(279),(318),"../ssl/ssl_lib.c",3006)
+   ERR_put_error(20,(279),(318),"../ssl/ssl_lib.c",3009)
                                       ;
    return (0);
   }
@@ -20350,7 +20353,7 @@ ssl_get_server_send_pkey(const SSL *s)
  alg_a = s->s3->tmp.new_cipher->algorithm_auth;
 
  if (alg_k & (0x00000020L|0x00000040L)) {
-# 3043 "../ssl/ssl_lib.c"
+# 3046 "../ssl/ssl_lib.c"
   i = 5;
  } else if (alg_a & 0x00000040L) {
   i = 5;
@@ -20358,9 +20361,9 @@ ssl_get_server_send_pkey(const SSL *s)
   i = 2;
  } else if (alg_a & 0x00000001L) {
   if (c->pkeys[0].x509 == 
-# 3049 "../ssl/ssl_lib.c" 3 4
+# 3052 "../ssl/ssl_lib.c" 3 4
                                         ((void *)0)
-# 3049 "../ssl/ssl_lib.c"
+# 3052 "../ssl/ssl_lib.c"
                                             )
    i = 1;
   else
@@ -20368,11 +20371,11 @@ ssl_get_server_send_pkey(const SSL *s)
  } else if (alg_a & 0x00000200L) {
   i = 6;
  } else {
-  ERR_put_error(20,(317),((4|64)),"../ssl/ssl_lib.c",3056);
+  ERR_put_error(20,(317),((4|64)),"../ssl/ssl_lib.c",3059);
   return (
-# 3057 "../ssl/ssl_lib.c" 3 4
+# 3060 "../ssl/ssl_lib.c" 3 4
          ((void *)0)
-# 3057 "../ssl/ssl_lib.c"
+# 3060 "../ssl/ssl_lib.c"
              );
  }
 
@@ -20387,9 +20390,9 @@ ssl_get_server_send_cert(const SSL *s)
  cpk = ssl_get_server_send_pkey(s);
  if (!cpk)
   return (
-# 3070 "../ssl/ssl_lib.c" 3 4
+# 3073 "../ssl/ssl_lib.c" 3 4
          ((void *)0)
-# 3070 "../ssl/ssl_lib.c"
+# 3073 "../ssl/ssl_lib.c"
              );
  return (cpk->x509);
 }
@@ -20406,37 +20409,37 @@ ssl_get_sign_pkey(SSL *s, const SSL_CIPHER *cipher, const EVP_MD **pmd)
 
  if ((alg_a & 0x00000002L) &&
      (c->pkeys[2].privatekey != 
-# 3085 "../ssl/ssl_lib.c" 3 4
+# 3088 "../ssl/ssl_lib.c" 3 4
                                                ((void *)0)
-# 3085 "../ssl/ssl_lib.c"
+# 3088 "../ssl/ssl_lib.c"
                                                    ))
   idx = 2;
  else if (alg_a & 0x00000001L) {
   if (c->pkeys[1].privatekey != 
-# 3088 "../ssl/ssl_lib.c" 3 4
+# 3091 "../ssl/ssl_lib.c" 3 4
                                                ((void *)0)
-# 3088 "../ssl/ssl_lib.c"
+# 3091 "../ssl/ssl_lib.c"
                                                    )
    idx = 1;
   else if (c->pkeys[0].privatekey != 
-# 3090 "../ssl/ssl_lib.c" 3 4
+# 3093 "../ssl/ssl_lib.c" 3 4
                                                    ((void *)0)
-# 3090 "../ssl/ssl_lib.c"
+# 3093 "../ssl/ssl_lib.c"
                                                        )
    idx = 0;
  } else if ((alg_a & 0x00000040L) &&
      (c->pkeys[5].privatekey != 
-# 3093 "../ssl/ssl_lib.c" 3 4
+# 3096 "../ssl/ssl_lib.c" 3 4
                                           ((void *)0)
-# 3093 "../ssl/ssl_lib.c"
+# 3096 "../ssl/ssl_lib.c"
                                               ))
   idx = 5;
  if (idx == -1) {
-  ERR_put_error(20,(183),((4|64)),"../ssl/ssl_lib.c",3096);
+  ERR_put_error(20,(183),((4|64)),"../ssl/ssl_lib.c",3099);
   return (
-# 3097 "../ssl/ssl_lib.c" 3 4
+# 3100 "../ssl/ssl_lib.c" 3 4
          ((void *)0)
-# 3097 "../ssl/ssl_lib.c"
+# 3100 "../ssl/ssl_lib.c"
              );
  }
  if (pmd)
@@ -20459,102 +20462,102 @@ ssl_get_auto_dh(SSL *s)
    keylen = 3072;
  } else {
   if ((cpk = ssl_get_server_send_pkey(s)) == 
-# 3118 "../ssl/ssl_lib.c" 3 4
+# 3121 "../ssl/ssl_lib.c" 3 4
                                             ((void *)0)
-# 3118 "../ssl/ssl_lib.c"
+# 3121 "../ssl/ssl_lib.c"
                                                 )
    return (
-# 3119 "../ssl/ssl_lib.c" 3 4
+# 3122 "../ssl/ssl_lib.c" 3 4
           ((void *)0)
-# 3119 "../ssl/ssl_lib.c"
+# 3122 "../ssl/ssl_lib.c"
               );
   if (cpk->privatekey == 
-# 3120 "../ssl/ssl_lib.c" 3 4
+# 3123 "../ssl/ssl_lib.c" 3 4
                         ((void *)0) 
-# 3120 "../ssl/ssl_lib.c"
+# 3123 "../ssl/ssl_lib.c"
                              || cpk->privatekey->pkey.dh == 
-# 3120 "../ssl/ssl_lib.c" 3 4
+# 3123 "../ssl/ssl_lib.c" 3 4
                                                             ((void *)0)
-# 3120 "../ssl/ssl_lib.c"
+# 3123 "../ssl/ssl_lib.c"
                                                                 )
    return (
-# 3121 "../ssl/ssl_lib.c" 3 4
+# 3124 "../ssl/ssl_lib.c" 3 4
           ((void *)0)
-# 3121 "../ssl/ssl_lib.c"
+# 3124 "../ssl/ssl_lib.c"
               );
   keylen = EVP_PKEY_bits(cpk->privatekey);
  }
 
  if ((dhp = DH_new()) == 
-# 3125 "../ssl/ssl_lib.c" 3 4
+# 3128 "../ssl/ssl_lib.c" 3 4
                         ((void *)0)
-# 3125 "../ssl/ssl_lib.c"
+# 3128 "../ssl/ssl_lib.c"
                             )
   return (
-# 3126 "../ssl/ssl_lib.c" 3 4
+# 3129 "../ssl/ssl_lib.c" 3 4
          ((void *)0)
-# 3126 "../ssl/ssl_lib.c"
+# 3129 "../ssl/ssl_lib.c"
              );
 
  dhp->g = BN_new();
  if (dhp->g != 
-# 3129 "../ssl/ssl_lib.c" 3 4
+# 3132 "../ssl/ssl_lib.c" 3 4
               ((void *)0)
-# 3129 "../ssl/ssl_lib.c"
+# 3132 "../ssl/ssl_lib.c"
                   )
   BN_set_word(dhp->g, 2);
 
  if (keylen >= 8192)
   dhp->p = get_rfc3526_prime_8192(
-# 3133 "../ssl/ssl_lib.c" 3 4
+# 3136 "../ssl/ssl_lib.c" 3 4
                                  ((void *)0)
-# 3133 "../ssl/ssl_lib.c"
+# 3136 "../ssl/ssl_lib.c"
                                      );
  else if (keylen >= 4096)
   dhp->p = get_rfc3526_prime_4096(
-# 3135 "../ssl/ssl_lib.c" 3 4
+# 3138 "../ssl/ssl_lib.c" 3 4
                                  ((void *)0)
-# 3135 "../ssl/ssl_lib.c"
+# 3138 "../ssl/ssl_lib.c"
                                      );
  else if (keylen >= 3072)
   dhp->p = get_rfc3526_prime_3072(
-# 3137 "../ssl/ssl_lib.c" 3 4
+# 3140 "../ssl/ssl_lib.c" 3 4
                                  ((void *)0)
-# 3137 "../ssl/ssl_lib.c"
+# 3140 "../ssl/ssl_lib.c"
                                      );
  else if (keylen >= 2048)
   dhp->p = get_rfc3526_prime_2048(
-# 3139 "../ssl/ssl_lib.c" 3 4
+# 3142 "../ssl/ssl_lib.c" 3 4
                                  ((void *)0)
-# 3139 "../ssl/ssl_lib.c"
+# 3142 "../ssl/ssl_lib.c"
                                      );
  else if (keylen >= 1536)
   dhp->p = get_rfc3526_prime_1536(
-# 3141 "../ssl/ssl_lib.c" 3 4
+# 3144 "../ssl/ssl_lib.c" 3 4
                                  ((void *)0)
-# 3141 "../ssl/ssl_lib.c"
+# 3144 "../ssl/ssl_lib.c"
                                      );
  else
   dhp->p = get_rfc2409_prime_1024(
-# 3143 "../ssl/ssl_lib.c" 3 4
+# 3146 "../ssl/ssl_lib.c" 3 4
                                  ((void *)0)
-# 3143 "../ssl/ssl_lib.c"
+# 3146 "../ssl/ssl_lib.c"
                                      );
 
  if (dhp->p == 
-# 3145 "../ssl/ssl_lib.c" 3 4
+# 3148 "../ssl/ssl_lib.c" 3 4
               ((void *)0) 
-# 3145 "../ssl/ssl_lib.c"
+# 3148 "../ssl/ssl_lib.c"
                    || dhp->g == 
-# 3145 "../ssl/ssl_lib.c" 3 4
+# 3148 "../ssl/ssl_lib.c" 3 4
                                 ((void *)0)
-# 3145 "../ssl/ssl_lib.c"
+# 3148 "../ssl/ssl_lib.c"
                                     ) {
   DH_free(dhp);
   return (
-# 3147 "../ssl/ssl_lib.c" 3 4
+# 3150 "../ssl/ssl_lib.c" 3 4
          ((void *)0)
-# 3147 "../ssl/ssl_lib.c"
+# 3150 "../ssl/ssl_lib.c"
              );
  }
  return (dhp);
@@ -20562,9 +20565,9 @@ ssl_get_auto_dh(SSL *s)
 
 
  static SSL_SESSION* ssl_session_outside = 
-# 3153 "../ssl/ssl_lib.c" 3 4
+# 3156 "../ssl/ssl_lib.c" 3 4
                                           ((void *)0)
-# 3153 "../ssl/ssl_lib.c"
+# 3156 "../ssl/ssl_lib.c"
                                               ;
 
 
@@ -20607,11 +20610,11 @@ ssl_update_cache(SSL *s, int mode)
  if ((i & mode) && (!s->hit) && ((i & 0x0200)
      || SSL_CTX_add_session(s->initial_ctx, s->session))
      && (s->initial_ctx->new_session_cb != 
-# 3194 "../ssl/ssl_lib.c" 3 4
+# 3197 "../ssl/ssl_lib.c" 3 4
                                           ((void *)0)
-# 3194 "../ssl/ssl_lib.c"
+# 3197 "../ssl/ssl_lib.c"
                                               )) {
-  CRYPTO_add_lock(&s->session->references,1,14,"../ssl/ssl_lib.c",3195);
+  CRYPTO_add_lock(&s->session->references,1,14,"../ssl/ssl_lib.c",3198);
 
   int retval = ocall_new_session_callback_wrapper(s);
   if (!retval)
@@ -20625,9 +20628,9 @@ ssl_update_cache(SSL *s, int mode)
       s->initial_ctx->stats.sess_connect_good :
       s->initial_ctx->stats.sess_accept_good) & 0xff) == 0xff) {
    SSL_CTX_flush_sessions(s->initial_ctx, time(
-# 3208 "../ssl/ssl_lib.c" 3 4
+# 3211 "../ssl/ssl_lib.c" 3 4
                                               ((void *)0)
-# 3208 "../ssl/ssl_lib.c"
+# 3211 "../ssl/ssl_lib.c"
                                                   ));
   }
  }
@@ -20647,9 +20650,9 @@ SSL_set_ssl_method(SSL *s, const SSL_METHOD *meth)
 
  if (s->method != meth) {
   if (s->handshake_func != 
-# 3226 "../ssl/ssl_lib.c" 3 4
+# 3229 "../ssl/ssl_lib.c" 3 4
                           ((void *)0)
-# 3226 "../ssl/ssl_lib.c"
+# 3229 "../ssl/ssl_lib.c"
                               )
    conn = (s->handshake_func == s->method->ssl_connect);
 
@@ -20705,7 +20708,7 @@ SSL_get_error(const SSL *s, int i)
   if (BIO_test_flags(bio, 0x01)) {
    return (2);
   } else if (BIO_test_flags(bio, 0x02)) {
-# 3291 "../ssl/ssl_lib.c"
+# 3294 "../ssl/ssl_lib.c"
    return (3);
   } else if (BIO_test_flags(bio, 0x04)) {
    reason = BIO_get_retry_reason(bio);
@@ -20768,11 +20771,11 @@ SSL_do_handshake(SSL *s)
  int ret = 1;
 
  if (s->handshake_func == 
-# 3352 "../ssl/ssl_lib.c" 3 4
+# 3355 "../ssl/ssl_lib.c" 3 4
                          ((void *)0)
-# 3352 "../ssl/ssl_lib.c"
+# 3355 "../ssl/ssl_lib.c"
                              ) {
-  ERR_put_error(20,(180),(144),"../ssl/ssl_lib.c",3353);
+  ERR_put_error(20,(180),(144),"../ssl/ssl_lib.c",3356);
   return (-1);
  }
 
@@ -20842,7 +20845,7 @@ SSL_set_connect_state(SSL *s)
 int
 ssl_undefined_function(SSL *s)
 {
- ERR_put_error(20,(197),((2|64)),"../ssl/ssl_lib.c",3424)
+ ERR_put_error(20,(197),((2|64)),"../ssl/ssl_lib.c",3427)
                                        ;
  return (0);
 }
@@ -20850,7 +20853,7 @@ ssl_undefined_function(SSL *s)
 int
 ssl_undefined_void_function(void)
 {
- ERR_put_error(20,(244),((2|64)),"../ssl/ssl_lib.c",3432)
+ ERR_put_error(20,(244),((2|64)),"../ssl/ssl_lib.c",3435)
                                        ;
  return (0);
 }
@@ -20858,7 +20861,7 @@ ssl_undefined_void_function(void)
 int
 ssl_undefined_const_function(const SSL *s)
 {
- ERR_put_error(20,(243),((2|64)),"../ssl/ssl_lib.c",3440)
+ ERR_put_error(20,(243),((2|64)),"../ssl/ssl_lib.c",3443)
                                        ;
  return (0);
 }
@@ -20920,16 +20923,16 @@ ssl_max_server_version(SSL *s)
 
 
 void (*SSL_set_info_cb_addr)(const SSL *ssl, int type, int val) = 
-# 3500 "../ssl/ssl_lib.c" 3 4
+# 3503 "../ssl/ssl_lib.c" 3 4
                                                                  ((void *)0)
-# 3500 "../ssl/ssl_lib.c"
+# 3503 "../ssl/ssl_lib.c"
                                                                      ;
 void SSL_set_info_fake_callback(const SSL* ssl, int type, int val) {
  if (!SSL_set_info_cb_addr) {
-  my_printf("%s:%s;%i Need to implement SSL_set_info callback\n", "../ssl/ssl_lib.c", 3503, __func__);
+  my_printf("%s:%s;%i Need to implement SSL_set_info callback\n", "../ssl/ssl_lib.c", 3506, __func__);
 
  } else {
-  my_printf("%s:%s;%i SSL_set_info_callback not called but fake callback called!\n", "../ssl/ssl_lib.c", 3506, __func__);
+  my_printf("%s:%s;%i SSL_set_info_callback not called but fake callback called!\n", "../ssl/ssl_lib.c", 3509, __func__);
 
  }
 }
@@ -20970,14 +20973,14 @@ SSL_dup(SSL *s)
  int i;
 
  if ((ret = SSL_new(SSL_get_SSL_CTX(s))) == 
-# 3546 "../ssl/ssl_lib.c" 3 4
+# 3549 "../ssl/ssl_lib.c" 3 4
                                            ((void *)0)
-# 3546 "../ssl/ssl_lib.c"
+# 3549 "../ssl/ssl_lib.c"
                                                )
   return (
-# 3547 "../ssl/ssl_lib.c" 3 4
+# 3550 "../ssl/ssl_lib.c" 3 4
          ((void *)0)
-# 3547 "../ssl/ssl_lib.c"
+# 3550 "../ssl/ssl_lib.c"
              );
 
  ret->version = s->version;
@@ -20985,9 +20988,9 @@ SSL_dup(SSL *s)
  ret->method = s->method;
 
  if (s->session != 
-# 3553 "../ssl/ssl_lib.c" 3 4
+# 3556 "../ssl/ssl_lib.c" 3 4
                   ((void *)0)
-# 3553 "../ssl/ssl_lib.c"
+# 3556 "../ssl/ssl_lib.c"
                       ) {
 
   SSL_copy_session_id(ret, s);
@@ -21004,22 +21007,22 @@ SSL_dup(SSL *s)
   ret->method->ssl_new(ret);
 
   if (s->cert != 
-# 3568 "../ssl/ssl_lib.c" 3 4
+# 3571 "../ssl/ssl_lib.c" 3 4
                 ((void *)0)
-# 3568 "../ssl/ssl_lib.c"
+# 3571 "../ssl/ssl_lib.c"
                     ) {
    if (ret->cert != 
-# 3569 "../ssl/ssl_lib.c" 3 4
+# 3572 "../ssl/ssl_lib.c" 3 4
                    ((void *)0)
-# 3569 "../ssl/ssl_lib.c"
+# 3572 "../ssl/ssl_lib.c"
                        ) {
     ssl_cert_free(ret->cert);
    }
    ret->cert = ssl_cert_dup(s->cert);
    if (ret->cert == 
-# 3573 "../ssl/ssl_lib.c" 3 4
+# 3576 "../ssl/ssl_lib.c" 3 4
                    ((void *)0)
-# 3573 "../ssl/ssl_lib.c"
+# 3576 "../ssl/ssl_lib.c"
                        )
     goto err;
   }
@@ -21031,13 +21034,13 @@ SSL_dup(SSL *s)
  ret->options = s->options;
  ret->mode = s->mode;
  SSL_ctrl(ret,51,SSL_ctrl(s,50,0,
-# 3583 "../ssl/ssl_lib.c" 3 4
+# 3586 "../ssl/ssl_lib.c" 3 4
 ((void *)0)
-# 3583 "../ssl/ssl_lib.c"
+# 3586 "../ssl/ssl_lib.c"
 ),
-# 3583 "../ssl/ssl_lib.c" 3 4
+# 3586 "../ssl/ssl_lib.c" 3 4
 ((void *)0)
-# 3583 "../ssl/ssl_lib.c"
+# 3586 "../ssl/ssl_lib.c"
 );
  SSL_set_read_ahead(ret, SSL_get_read_ahead(s));
  ret->msg_callback = s->msg_callback;
@@ -21058,17 +21061,17 @@ SSL_dup(SSL *s)
 
 
  if (s->rbio != 
-# 3602 "../ssl/ssl_lib.c" 3 4
+# 3605 "../ssl/ssl_lib.c" 3 4
                ((void *)0)
-# 3602 "../ssl/ssl_lib.c"
+# 3605 "../ssl/ssl_lib.c"
                    ) {
   if (!BIO_ctrl(s->rbio,12,0,(char *)((char *)&ret->rbio)))
    goto err;
  }
  if (s->wbio != 
-# 3606 "../ssl/ssl_lib.c" 3 4
+# 3609 "../ssl/ssl_lib.c" 3 4
                ((void *)0)
-# 3606 "../ssl/ssl_lib.c"
+# 3609 "../ssl/ssl_lib.c"
                    ) {
   if (s->wbio != s->rbio) {
    if (!BIO_ctrl(s->wbio,12,0,(char *)((char *)&ret->wbio)))
@@ -21100,51 +21103,51 @@ SSL_dup(SSL *s)
 
 
  if (s->cipher_list != 
-# 3636 "../ssl/ssl_lib.c" 3 4
+# 3639 "../ssl/ssl_lib.c" 3 4
                       ((void *)0)
-# 3636 "../ssl/ssl_lib.c"
+# 3639 "../ssl/ssl_lib.c"
                           ) {
   if ((ret->cipher_list =
       (struct stack_st_SSL_CIPHER *)sk_dup(((_STACK*) (1 ? s->cipher_list : (struct stack_st_SSL_CIPHER*)0)))) == 
-# 3638 "../ssl/ssl_lib.c" 3 4
+# 3641 "../ssl/ssl_lib.c" 3 4
                                            ((void *)0)
-# 3638 "../ssl/ssl_lib.c"
+# 3641 "../ssl/ssl_lib.c"
                                                )
    goto err;
  }
  if (s->cipher_list_by_id != 
-# 3641 "../ssl/ssl_lib.c" 3 4
+# 3644 "../ssl/ssl_lib.c" 3 4
                             ((void *)0)
-# 3641 "../ssl/ssl_lib.c"
+# 3644 "../ssl/ssl_lib.c"
                                 ) {
   if ((ret->cipher_list_by_id =
       (struct stack_st_SSL_CIPHER *)sk_dup(((_STACK*) (1 ? s->cipher_list_by_id : (struct stack_st_SSL_CIPHER*)0)))) == 
-# 3643 "../ssl/ssl_lib.c" 3 4
+# 3646 "../ssl/ssl_lib.c" 3 4
                                                  ((void *)0)
-# 3643 "../ssl/ssl_lib.c"
+# 3646 "../ssl/ssl_lib.c"
                                                      )
    goto err;
  }
 
 
  if (s->client_CA != 
-# 3648 "../ssl/ssl_lib.c" 3 4
+# 3651 "../ssl/ssl_lib.c" 3 4
                     ((void *)0)
-# 3648 "../ssl/ssl_lib.c"
+# 3651 "../ssl/ssl_lib.c"
                         ) {
   if ((sk = (struct stack_st_X509_NAME *)sk_dup(((_STACK*) (1 ? s->client_CA : (struct stack_st_X509_NAME*)0)))) == 
-# 3649 "../ssl/ssl_lib.c" 3 4
+# 3652 "../ssl/ssl_lib.c" 3 4
                                               ((void *)0)
-# 3649 "../ssl/ssl_lib.c"
+# 3652 "../ssl/ssl_lib.c"
                                                   ) goto err;
    ret->client_CA = sk;
   for (i = 0; i < sk_num(((_STACK*) (1 ? (sk) : (struct stack_st_X509_NAME*)0))); i++) {
    xn = ((X509_NAME *)sk_value(((_STACK*) (1 ? (sk) : (struct stack_st_X509_NAME*)0)), (i)));
    if (sk_set(((_STACK*) (1 ? (sk) : (struct stack_st_X509_NAME*)0)), (i), ((void*) (1 ? (X509_NAME_dup(xn)) : (X509_NAME*)0)))
                           == 
-# 3654 "../ssl/ssl_lib.c" 3 4
+# 3657 "../ssl/ssl_lib.c" 3 4
                             ((void *)0)
-# 3654 "../ssl/ssl_lib.c"
+# 3657 "../ssl/ssl_lib.c"
                                 ) {
     X509_NAME_free(xn);
     goto err;
@@ -21155,15 +21158,15 @@ SSL_dup(SSL *s)
  if (0) {
 err:
   if (ret != 
-# 3663 "../ssl/ssl_lib.c" 3 4
+# 3666 "../ssl/ssl_lib.c" 3 4
             ((void *)0)
-# 3663 "../ssl/ssl_lib.c"
+# 3666 "../ssl/ssl_lib.c"
                 )
    SSL_free(ret);
   ret = 
-# 3665 "../ssl/ssl_lib.c" 3 4
+# 3668 "../ssl/ssl_lib.c" 3 4
        ((void *)0)
-# 3665 "../ssl/ssl_lib.c"
+# 3668 "../ssl/ssl_lib.c"
            ;
  }
  return (ret);
@@ -21174,41 +21177,41 @@ ssl_clear_cipher_ctx(SSL *s)
 {
  EVP_CIPHER_CTX_free(s->enc_read_ctx);
  s->enc_read_ctx = 
-# 3674 "../ssl/ssl_lib.c" 3 4
+# 3677 "../ssl/ssl_lib.c" 3 4
                   ((void *)0)
-# 3674 "../ssl/ssl_lib.c"
+# 3677 "../ssl/ssl_lib.c"
                       ;
  EVP_CIPHER_CTX_free(s->enc_write_ctx);
  s->enc_write_ctx = 
-# 3676 "../ssl/ssl_lib.c" 3 4
+# 3679 "../ssl/ssl_lib.c" 3 4
                    ((void *)0)
-# 3676 "../ssl/ssl_lib.c"
+# 3679 "../ssl/ssl_lib.c"
                        ;
 
  if (s->aead_read_ctx != 
-# 3678 "../ssl/ssl_lib.c" 3 4
+# 3681 "../ssl/ssl_lib.c" 3 4
                         ((void *)0)
-# 3678 "../ssl/ssl_lib.c"
+# 3681 "../ssl/ssl_lib.c"
                             ) {
   EVP_AEAD_CTX_cleanup(&s->aead_read_ctx->ctx);
   free(s->aead_read_ctx);
   s->aead_read_ctx = 
-# 3681 "../ssl/ssl_lib.c" 3 4
+# 3684 "../ssl/ssl_lib.c" 3 4
                     ((void *)0)
-# 3681 "../ssl/ssl_lib.c"
+# 3684 "../ssl/ssl_lib.c"
                         ;
  }
  if (s->aead_write_ctx != 
-# 3683 "../ssl/ssl_lib.c" 3 4
+# 3686 "../ssl/ssl_lib.c" 3 4
                          ((void *)0)
-# 3683 "../ssl/ssl_lib.c"
+# 3686 "../ssl/ssl_lib.c"
                              ) {
   EVP_AEAD_CTX_cleanup(&s->aead_write_ctx->ctx);
   free(s->aead_write_ctx);
   s->aead_write_ctx = 
-# 3686 "../ssl/ssl_lib.c" 3 4
+# 3689 "../ssl/ssl_lib.c" 3 4
                      ((void *)0)
-# 3686 "../ssl/ssl_lib.c"
+# 3689 "../ssl/ssl_lib.c"
                          ;
  }
 
@@ -21232,16 +21235,16 @@ X509 *
 SSL_get_certificate(const SSL *s)
 {
  if (s->cert != 
-# 3708 "../ssl/ssl_lib.c" 3 4
+# 3711 "../ssl/ssl_lib.c" 3 4
                ((void *)0)
-# 3708 "../ssl/ssl_lib.c"
+# 3711 "../ssl/ssl_lib.c"
                    )
   return (s->cert->key->x509);
  else
   return (
-# 3711 "../ssl/ssl_lib.c" 3 4
+# 3714 "../ssl/ssl_lib.c" 3 4
          ((void *)0)
-# 3711 "../ssl/ssl_lib.c"
+# 3714 "../ssl/ssl_lib.c"
              );
 }
 
@@ -21265,16 +21268,16 @@ EVP_PKEY *
 SSL_get_privatekey(SSL *s)
 {
  if (s->cert != 
-# 3733 "../ssl/ssl_lib.c" 3 4
+# 3736 "../ssl/ssl_lib.c" 3 4
                ((void *)0)
-# 3733 "../ssl/ssl_lib.c"
+# 3736 "../ssl/ssl_lib.c"
                    )
   return (s->cert->key->privatekey);
  else
   return (
-# 3736 "../ssl/ssl_lib.c" 3 4
+# 3739 "../ssl/ssl_lib.c" 3 4
          ((void *)0)
-# 3736 "../ssl/ssl_lib.c"
+# 3739 "../ssl/ssl_lib.c"
              );
 }
 
@@ -21287,28 +21290,28 @@ const SSL_CIPHER *
 SSL_get_current_cipher(const SSL *s)
 {
  if ((s->session != 
-# 3747 "../ssl/ssl_lib.c" 3 4
+# 3750 "../ssl/ssl_lib.c" 3 4
                    ((void *)0)
-# 3747 "../ssl/ssl_lib.c"
+# 3750 "../ssl/ssl_lib.c"
                        ) && (s->session->cipher != 
-# 3747 "../ssl/ssl_lib.c" 3 4
+# 3750 "../ssl/ssl_lib.c" 3 4
                                                    ((void *)0)
-# 3747 "../ssl/ssl_lib.c"
+# 3750 "../ssl/ssl_lib.c"
                                                        ))
   return (s->session->cipher);
  return (
-# 3749 "../ssl/ssl_lib.c" 3 4
+# 3752 "../ssl/ssl_lib.c" 3 4
         ((void *)0)
-# 3749 "../ssl/ssl_lib.c"
+# 3752 "../ssl/ssl_lib.c"
             );
 }
 const void *
 SSL_get_current_compression(SSL *s)
 {
  return (
-# 3754 "../ssl/ssl_lib.c" 3 4
+# 3757 "../ssl/ssl_lib.c" 3 4
         ((void *)0)
-# 3754 "../ssl/ssl_lib.c"
+# 3757 "../ssl/ssl_lib.c"
             );
 }
 
@@ -21316,9 +21319,9 @@ const void *
 SSL_get_current_expansion(SSL *s)
 {
  return (
-# 3760 "../ssl/ssl_lib.c" 3 4
+# 3763 "../ssl/ssl_lib.c" 3 4
         ((void *)0)
-# 3760 "../ssl/ssl_lib.c"
+# 3763 "../ssl/ssl_lib.c"
             );
 }
 
@@ -21328,15 +21331,15 @@ ssl_init_wbio_buffer(SSL *s, int push)
  BIO *bbio;
 
  if (s->bbio == 
-# 3768 "../ssl/ssl_lib.c" 3 4
+# 3771 "../ssl/ssl_lib.c" 3 4
                ((void *)0)
-# 3768 "../ssl/ssl_lib.c"
+# 3771 "../ssl/ssl_lib.c"
                    ) {
   bbio = BIO_new(BIO_f_buffer());
   if (bbio == 
-# 3770 "../ssl/ssl_lib.c" 3 4
+# 3773 "../ssl/ssl_lib.c" 3 4
              ((void *)0)
-# 3770 "../ssl/ssl_lib.c"
+# 3773 "../ssl/ssl_lib.c"
                  )
    return (0);
   s->bbio = bbio;
@@ -21346,13 +21349,13 @@ ssl_init_wbio_buffer(SSL *s, int push)
    s->wbio = BIO_pop(s->wbio);
  }
  (void)(int)BIO_ctrl(bbio,1,0,
-# 3778 "../ssl/ssl_lib.c" 3 4
+# 3781 "../ssl/ssl_lib.c" 3 4
       ((void *)0)
-# 3778 "../ssl/ssl_lib.c"
+# 3781 "../ssl/ssl_lib.c"
       );
 
  if (!BIO_int_ctrl(bbio,117,1,0)) {
-  ERR_put_error(20,(184),(7),"../ssl/ssl_lib.c",3781);
+  ERR_put_error(20,(184),(7),"../ssl/ssl_lib.c",3784);
   return (0);
  }
  if (push) {
@@ -21369,16 +21372,16 @@ void
 ssl_free_wbio_buffer(SSL *s)
 {
  if (s == 
-# 3797 "../ssl/ssl_lib.c" 3 4
+# 3800 "../ssl/ssl_lib.c" 3 4
          ((void *)0)
-# 3797 "../ssl/ssl_lib.c"
+# 3800 "../ssl/ssl_lib.c"
              )
   return;
 
  if (s->bbio == 
-# 3800 "../ssl/ssl_lib.c" 3 4
+# 3803 "../ssl/ssl_lib.c" 3 4
                ((void *)0)
-# 3800 "../ssl/ssl_lib.c"
+# 3803 "../ssl/ssl_lib.c"
                    )
   return;
 
@@ -21388,9 +21391,9 @@ ssl_free_wbio_buffer(SSL *s)
  }
  BIO_free(s->bbio);
  s->bbio = 
-# 3808 "../ssl/ssl_lib.c" 3 4
+# 3811 "../ssl/ssl_lib.c" 3 4
           ((void *)0)
-# 3808 "../ssl/ssl_lib.c"
+# 3811 "../ssl/ssl_lib.c"
               ;
 }
 
@@ -21505,19 +21508,19 @@ SSL_set_SSL_CTX(SSL *ssl, SSL_CTX* ctx)
  if (ssl->ctx == ctx)
   return (ssl->ctx);
  if (ctx == 
-# 3921 "../ssl/ssl_lib.c" 3 4
+# 3924 "../ssl/ssl_lib.c" 3 4
            ((void *)0)
-# 3921 "../ssl/ssl_lib.c"
+# 3924 "../ssl/ssl_lib.c"
                )
   ctx = ssl->initial_ctx;
  if (ssl->cert != 
-# 3923 "../ssl/ssl_lib.c" 3 4
+# 3926 "../ssl/ssl_lib.c" 3 4
                  ((void *)0)
-# 3923 "../ssl/ssl_lib.c"
+# 3926 "../ssl/ssl_lib.c"
                      )
   ssl_cert_free(ssl->cert);
  ssl->cert = ssl_cert_dup(ctx->cert);
- CRYPTO_add_lock(&ctx->references,1,12,"../ssl/ssl_lib.c",3926);
+ CRYPTO_add_lock(&ctx->references,1,12,"../ssl/ssl_lib.c",3929);
  SSL_CTX_free(ssl->ctx);
  ssl->ctx = ctx;
  return (ssl->ctx);
@@ -21622,15 +21625,15 @@ SSL_get_verify_result(const SSL *ssl)
 
 
 CRYPTO_EX_new *crypto_ex_new_cb_address = 
-# 4030 "../ssl/ssl_lib.c" 3 4
+# 4033 "../ssl/ssl_lib.c" 3 4
                                          ((void *)0)
-# 4030 "../ssl/ssl_lib.c"
+# 4033 "../ssl/ssl_lib.c"
                                              ;
 int fake_crypto_ex_new_cb(void *parent, void *ptr, CRYPTO_EX_DATA *ad, int idx, long argl, void *argp) {
  if (crypto_ex_new_cb_address != 
-# 4032 "../ssl/ssl_lib.c" 3 4
+# 4035 "../ssl/ssl_lib.c" 3 4
                                 ((void *)0)
-# 4032 "../ssl/ssl_lib.c"
+# 4035 "../ssl/ssl_lib.c"
                                     ) {
 
 
@@ -21640,15 +21643,15 @@ int fake_crypto_ex_new_cb(void *parent, void *ptr, CRYPTO_EX_DATA *ad, int idx, 
 }
 
 CRYPTO_EX_dup *crypto_ex_dup_cb_address = 
-# 4040 "../ssl/ssl_lib.c" 3 4
+# 4043 "../ssl/ssl_lib.c" 3 4
                                          ((void *)0)
-# 4040 "../ssl/ssl_lib.c"
+# 4043 "../ssl/ssl_lib.c"
                                              ;
 int fake_crypto_ex_dup_cb(CRYPTO_EX_DATA *to, CRYPTO_EX_DATA *from, void *from_d, int idx, long argl, void *argp) {
  if (crypto_ex_dup_cb_address != 
-# 4042 "../ssl/ssl_lib.c" 3 4
+# 4045 "../ssl/ssl_lib.c" 3 4
                                 ((void *)0)
-# 4042 "../ssl/ssl_lib.c"
+# 4045 "../ssl/ssl_lib.c"
                                     ) {
 
 
@@ -21658,15 +21661,15 @@ int fake_crypto_ex_dup_cb(CRYPTO_EX_DATA *to, CRYPTO_EX_DATA *from, void *from_d
 }
 
 CRYPTO_EX_free *crypto_ex_free_cb_address = 
-# 4050 "../ssl/ssl_lib.c" 3 4
+# 4053 "../ssl/ssl_lib.c" 3 4
                                            ((void *)0)
-# 4050 "../ssl/ssl_lib.c"
+# 4053 "../ssl/ssl_lib.c"
                                                ;
 void fake_crypto_ex_free_cb(void *parent, void *ptr, CRYPTO_EX_DATA *ad, int idx, long argl, void *argp) {
  if (crypto_ex_free_cb_address != 
-# 4052 "../ssl/ssl_lib.c" 3 4
+# 4055 "../ssl/ssl_lib.c" 3 4
                                  ((void *)0)
-# 4052 "../ssl/ssl_lib.c"
+# 4055 "../ssl/ssl_lib.c"
                                      ) {
   crypto_ex_free_cb_wrapper(parent, ptr, ad, idx, argl, argp, crypto_ex_free_cb_address);
  }
@@ -21759,9 +21762,9 @@ void
 SSL_CTX_set_cert_store(SSL_CTX *ctx, X509_STORE *store)
 {
  if (ctx->cert_store != 
-# 4143 "../ssl/ssl_lib.c" 3 4
+# 4146 "../ssl/ssl_lib.c" 3 4
                        ((void *)0)
-# 4143 "../ssl/ssl_lib.c"
+# 4146 "../ssl/ssl_lib.c"
                            )
   X509_STORE_free(ctx->cert_store);
  ctx->cert_store = store;
@@ -21791,9 +21794,9 @@ SSL_SESSION* ocall_get_session_cb_trampoline(SSL* ssl, unsigned char* data, int 
 
 
 RSA *(*ssl_ctx_set_tmp_rsa_callback_address)(SSL *ssl, int is_export, int keylength) = 
-# 4171 "../ssl/ssl_lib.c" 3 4
+# 4174 "../ssl/ssl_lib.c" 3 4
                                                                                       ((void *)0)
-# 4171 "../ssl/ssl_lib.c"
+# 4174 "../ssl/ssl_lib.c"
                                                                                           ;
 RSA *ssl_ctx_set_tmp_rsa_fake_callback(SSL *ssl, int is_export, int keylength) {
  if (ssl_ctx_set_tmp_rsa_callback_address) {
@@ -21801,9 +21804,9 @@ RSA *ssl_ctx_set_tmp_rsa_fake_callback(SSL *ssl, int is_export, int keylength) {
   my_fprintf(0, "need to call callback ssl_ctx_set_tmp_rsa_callback_address\n");
  }
  return 
-# 4177 "../ssl/ssl_lib.c" 3 4
+# 4180 "../ssl/ssl_lib.c" 3 4
        ((void *)0)
-# 4177 "../ssl/ssl_lib.c"
+# 4180 "../ssl/ssl_lib.c"
            ;
 }
 
@@ -21831,15 +21834,15 @@ SSL_set_tmp_rsa_callback(SSL *ssl, RSA *(*cb)(SSL *ssl, int is_export,
 
 
 DH* (*SSL_CTX_set_tmp_dh_cb_address)(SSL *, int, int) = 
-# 4203 "../ssl/ssl_lib.c" 3 4
+# 4206 "../ssl/ssl_lib.c" 3 4
                                                        ((void *)0)
-# 4203 "../ssl/ssl_lib.c"
+# 4206 "../ssl/ssl_lib.c"
                                                            ;
 DH* SSL_CTX_set_tmp_dh_fake_cb(SSL *ssl, int is_export, int keylength) {
  DH* retval = 
-# 4205 "../ssl/ssl_lib.c" 3 4
+# 4208 "../ssl/ssl_lib.c" 3 4
              ((void *)0)
-# 4205 "../ssl/ssl_lib.c"
+# 4208 "../ssl/ssl_lib.c"
                  ;
 
  if (SSL_CTX_set_tmp_dh_cb_address) {
@@ -21921,9 +21924,9 @@ ssl_clear_hash_ctx(EVP_MD_CTX **hash)
  if (*hash)
   EVP_MD_CTX_destroy(*hash);
  *hash = 
-# 4285 "../ssl/ssl_lib.c" 3 4
+# 4288 "../ssl/ssl_lib.c" 3 4
         ((void *)0)
-# 4285 "../ssl/ssl_lib.c"
+# 4288 "../ssl/ssl_lib.c"
             ;
 }
 

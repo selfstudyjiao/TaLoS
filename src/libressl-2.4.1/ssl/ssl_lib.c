@@ -1511,12 +1511,14 @@ SSL_peek(SSL *s, void *buf, int num)
 int
 ecall_SSL_write(SSL *s, const void *buf, int num) {
 #ifdef COMPILE_WITH_INTEL_SGX
+    printf("Entering ecall_SSL_write\n");
 	SSL* out_s = s;
 
 	hashmap* m = get_ssl_hardening();
 	SSL* in_s = (SSL*) hashmapGet(m, (unsigned long)out_s);
 
 	SSL_copy_fields_to_in_struct(in_s, out_s);
+    printf("Run SSL_write\n");
 	int ret = SSL_write(in_s, buf, num);
 	SSL_copy_fields_to_out_struct(in_s, out_s);
 	return ret;
@@ -1527,6 +1529,7 @@ ecall_SSL_write(SSL *s, const void *buf, int num) {
 int
 SSL_write(SSL *s, const void *buf, int num)
 {
+    printf("Entering SSL_write\n");
 	if (s->handshake_func == NULL) {
 		SSLerr(SSL_F_SSL_WRITE, SSL_R_UNINITIALIZED);
 		return (-1);

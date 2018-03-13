@@ -69,9 +69,9 @@ int server_connect()
     char *server_cert = TEST_SERVER_CERT;
     char *server_key = TEST_SERVER_KEY;
 
-    /* Initialize wolfSSL */
-    //enc_wolfSSL_Init(id, &sgxStatus);
-    // initialize_enclave();
+    // initializing
+    SSL_library_init();
+
 
     /* Create a socket that uses an internet IPv4 address,
      * Sets the socket to be stream based (TCP),
@@ -81,23 +81,29 @@ int server_connect()
         return -1;
     }
 
-    // initializing
-    SSL_library_init();
-
-    /* Create and initialize WOLFSSL_CTX */
+    /* Create and initialize CTX */
     method = SSLv23_server_method();
 
     ctx = SSL_CTX_new(method);
 
-    /*printf("use certificate\n");
-    /* Load server certificates into WOLFSSL_CTX */
-    /*SSL_CTX_use_certificate_file(ctx,server_cert,
-         SSL_FILETYPE_PEM);
+    if (SSL_CTX_use_certificate_file(ctx, server_cert, SSL_FILETYPE_PEM) != 1)
+    {
+        printf("SSL_CTX_use_certificate_file failed!\n");
+        return -1;
+    }
 
-    printf("use key\n");
-    /* Load server key into WOLFSSL_CTX */
-    /*SSL_CTX_use_PrivateKey_file(ctx,
-            server_key, SSL_FILETYPE_ASN1);
+    if (SSL_CTX_use_PrivateKey_file(ctx, server_key, SSL_FILETYPE_PEM) != 1)
+    {
+        printf("SSL_CTX_use_PrivateKey_file failed!\n");
+        return -1;
+    }
+
+    // 检查SSL连接 所用的私钥与证书是否匹配【所以你仅有公钥证书是不够的】
+    if (!SSL_CTX_check_private_key(ctx))
+    {
+        printf("Private key does not match the certificate public key\n");
+        return -1;
+    }
 
     /* Initialize the server address struct with zeros */
     memset(&servAddr, 0, sizeof(servAddr));
@@ -135,14 +141,17 @@ int server_connect()
         return EXIT_FAILURE;
     }
 
-        /* Attach wolfSSL to the socket */
+        /* Attach SSL to the socket */
     printf("set fd...\n");
     ret = SSL_set_fd(ssl, connd);
+
+    //hanshake with client
+    SSL_accept (ssl);
+
     printf("Client connected successfully\n");
 
     /* Read the client data into our buff array */
     memset(buff, 0, sizeof(buff));
-    sleep(5);
     ret = SSL_read(ssl, buff, sizeof(buff)-1);
     if(ret == -1) {
         printf("Server failed to read\n");
@@ -182,7 +191,7 @@ int server_connect()
     /* Reply back to the client */
     ret = SSL_write(ssl, buff, len);
     if (ret != len) {
-        printf("Server write failed.\n");
+        printf("Server write failed.%d\n", ret);
         return EXIT_FAILURE;
     }
 
