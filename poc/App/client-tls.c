@@ -51,7 +51,7 @@ int client_connect()
     char *client_key = TEST_CLIENT_KEY;
 
     /* data to send to the server, data recieved from the server */
-    char    sendBuff[] = "Hello!";
+    char    sendBuff[] = "Hello TaLos server!";
     char rcvBuff[MAXDATASIZE] = {0};
 
     /* internet address family, stream based tcp, default protocol */
@@ -129,7 +129,7 @@ int client_connect()
         printf("%p\n", ssl->handshake_func);
 
     printf("Write buff\n");
-    ret = SSL_write(ssl, sendBuff, 1);
+    ret = SSL_write(ssl, sendBuff, sizeof(sendBuff) -1);
     if (ret < 0) {
         /* the server failed to send data, or error trying */
         printf("Write error. Error: %i\n", ret);
